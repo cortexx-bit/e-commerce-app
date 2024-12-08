@@ -1,4 +1,37 @@
 ﻿@page
-@model WebAppAss.Pages.ContactusModel
+@model ContactusModel
 @{
+    ViewData["Title"] = "Contact Us";
+}
+
+<div class="contact-container">
+    <img src="~/img/logo.png" alt="WebAppAss Logo">
+    <h1>Contact Us</h1>
+    <p>Send us a message and we’ll get back to you as soon as possible. We do not check emails during service so we can keep up with your orders! Thank you.</p>
+    <form class="contact-form" id="contactForm">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Please, enter a valid name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Email" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" class="form-control" id="phone" placeholder="Please, enter a valid phone number" required>
+        </div>
+        <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea class="form-control" id="message" rows="4" placeholder="Your message" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+    <div class="success-message" id="successMessage" style="display: none;">
+        Your message has been successfully sent.
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/site.js" asp-append-version="true"></script>
 }

@@ -11,10 +11,10 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 navbar-custom">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3 navbar-custom">
             <div class="container">
                 <a class="navbar-brand" id="logo" asp-area="" asp-page="/Index">
-                    <img src="~/images/logo.png" alt="WebAppAss Logo" style="height: 40px;">
+                    <img src="~/img/logo.png" alt="Sam&Ella's Logo" style="height: 60px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -23,25 +23,25 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-center w-100">
                     <ul class="navbar-nav w-100 justify-content-center">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link text-light" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Hours&location">Hours & Location</a>
+                            <a class="nav-link text-light" asp-area="" asp-page="/Hours&location">Hours & Location</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Discover">Discover</a>
+                            <a class="nav-link text-light" asp-area="" asp-page="/Discover">Discover</a>
                         </li>
                     </ul>
                 </div>
                 <div class="navbar-right">
                     <div class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Account/Login">
+                        <a class="nav-link text-light" asp-area="" asp-page="/Account/Login">
                             <i class="bi bi-person-circle" aria-hidden="true"></i>
                             <span>Sign up/Login</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Cart">
+                        <a class="nav-link text-light" asp-area="" asp-page="/Cart">
                             <i class="bi bi-cart" aria-hidden="true"></i>
                             <span class="sr-only">Cart</span>
                         </a>
@@ -69,12 +69,11 @@
             </a>
         </div>
         <div class="copyright">
-            &copy; 2024 - WebAppAss
+            &copy; 2024 - Sam&Ella's Burgers
         </div>
         <div class="links">
             <a asp-area="" asp-page="/Privacy">Privacy Policy</a>
             <a asp-area="" asp-page="/Contactus">Contact Us</a>
-            <a asp-area="" asp-page="/About">About us</a>
             <a asp-area="" asp-page="/EmailSignup" class="btn btn-signup">Email signup</a>
         </div>
     </footer>
