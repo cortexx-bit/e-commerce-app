@@ -1,0 +1,61 @@
+﻿@page "{id:int}"
+@model WebAppAss.Pages.Menu.Dessert.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Dessert</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dessert.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dessert.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dessert.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dessert.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dessert.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dessert.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dessert.IsWarmDessert)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dessert.IsWarmDessert)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dessert.IsAvailable)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dessert.IsAvailable)
+        </dd>
+        <dd class="col-sm-10">
+            @if (Model.Dessert.ImageData != null)
+            {
+                <img src="data:image;base64,@Convert.ToBase64String(Model.Dessert.ImageData)"
+                     alt="@Model.Dessert.ImageDescription"
+                     class="img-fluid" />
+            }
+            else
+            {
+                <span class="text-muted">No image available</span>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Dessert?.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

@@ -1,0 +1,75 @@
+﻿@page
+@model WebAppAss.Pages.Menu.Dessert.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Dessert[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dessert[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dessert[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dessert[0].IsWarmDessert)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dessert[0].IsAvailable)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Dessert) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsWarmDessert)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAvailable)
+            </td>
+                @{
+                    try
+                    {
+                        <td>
+                            <img class="img-small" src="data:image;base64,@Convert.ToBase64String(item.ImageData)"
+                                 alt="@item.ImageDescription" />
+                        </td>
+                    }
+                    catch
+                    {
+                        <td>
+                            <img class="img-small" src="~/img/no-image.png" alt="No image provided" />
+                        </td>
+                    }
+                }
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

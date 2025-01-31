@@ -1,4 +1,29 @@
 ﻿@page
 @model WebAppAss.Pages.MenuModel
 @{
+    ViewData["Title"] = "Menu";
 }
+
+<h1>Our Menu</h1>
+
+<div class="menu-categories">
+    <div class="category">
+        <h2>Burgers</h2>
+        <a asp-page="/Menu/Burger/Index" class="btn btn-primary">View Burgers</a>
+    </div>
+
+    <div class="category">
+        <h2>Sides</h2>
+        <a asp-page="/Menu/Side/Index" class="btn btn-primary">View Sides</a>
+    </div>
+
+    <div class="category">
+        <h2>Desserts</h2>
+        <a asp-page="/Menu/Dessert/Index" class="btn btn-primary">View Desserts</a>
+    </div>
+
+    <div class="category">
+        <h2>Drinks</h2>
+        <a asp-page="/Menu/Drink/Index" class="btn btn-primary">View Drinks</a>
+    </div>
+</div>

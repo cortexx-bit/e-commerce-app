@@ -1,0 +1,66 @@
+﻿@page "{id:int}"
+@model WebAppAss.Pages.Menu.Side.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Side</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4" enctype="multipart/form-data">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Side.Id" />
+            <input type="hidden" asp-for="Side.ConcurrencyToken" />
+            <div class="form-group">
+                <label asp-for="Side.Name" class="control-label"></label>
+                <input asp-for="Side.Name" class="form-control" />
+                <span asp-validation-for="Side.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Side.Description" class="control-label"></label>
+                <input asp-for="Side.Description" class="form-control" />
+                <span asp-validation-for="Side.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Side.Price" class="control-label"></label>
+                <input asp-for="Side.Price" class="form-control" />
+                <span asp-validation-for="Side.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Side.Size" class="control-label"></label>
+                <input asp-for="Side.Size" class="form-control" />
+                <span asp-validation-for="Side.Size" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Side.IsAvailable" /> @Html.DisplayNameFor(model => model.Side.IsAvailable)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Side.ImageDescription" class="control-label"></label>
+                <input asp-for="Side.ImageDescription" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Side.ImageData" class="control-label">Image Upload</label>
+                <input type="file" id="file1"
+                       name="file1"
+                       multiple="multiple" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -5,52 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WebAppAss</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebAppAss.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3 navbar-custom">
+        <nav class="navbar navbar-custom">
             <div class="container">
-                <a class="navbar-brand" id="logo" asp-area="" asp-page="/Index">
-                    <img src="~/img/logo.png" alt="Sam&Ella's Logo" style="height: 60px;">
+                <!-- Logo on the left -->
+                <a class="navbar-brand" href="/">
+                    <img src="~/img/logo.png" alt="Sam&Ella's Logo">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-center w-100">
-                    <ul class="navbar-nav w-100 justify-content-center">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-page="/Hours&location">Hours & Location</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-page="/Discover">Discover</a>
-                        </li>
-                    </ul>
-                </div>
+                <!-- Centered navigation links -->
+                <ul class="navbar-nav navbar-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Menu">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Hours&location">Hours & Location</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Discover">Discover</a>
+                    </li>
+                </ul>
+                <!-- Right section: Account login and cart -->
                 <div class="navbar-right">
                     <div class="nav-item">
-                        <a class="nav-link text-light" asp-area="" asp-page="/Account/Login">
-                            <i class="bi bi-person-circle" aria-hidden="true"></i>
+                        <a class="nav-link" href="/Account/Login">
+                            <i class="bi bi-person-circle"></i>
                             <span>Sign up/Login</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a class="nav-link text-light" asp-area="" asp-page="/Cart">
-                            <i class="bi bi-cart" aria-hidden="true"></i>
-                            <span class="sr-only">Cart</span>
+                        <a class="nav-link" href="/Cart">
+                            <i class="bi bi-cart"></i>
                         </a>
                     </div>
                 </div>
             </div>
         </nav>
+
     </header>
-    <div class="container">
+    <div class="container-fluid">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -78,6 +76,9 @@
         </div>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
