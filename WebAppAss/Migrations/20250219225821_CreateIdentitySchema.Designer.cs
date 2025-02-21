@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAppAss.Data;
 
@@ -11,9 +12,10 @@ using WebAppAss.Data;
 namespace WebAppAss.Migrations
 {
     [DbContext(typeof(WebAppAssContext))]
-    partial class WebAppAssContextModelSnapshot : ModelSnapshot
+    [Migration("20250219225821_CreateIdentitySchema")]
+    partial class CreateIdentitySchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,38 +226,6 @@ namespace WebAppAss.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("WebAppAss.Models.Basket", b =>
-                {
-                    b.Property<int>("BasketID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BasketID"), 1L, 1);
-
-                    b.HasKey("BasketID");
-
-                    b.ToTable("Baskets");
-                });
-
-            modelBuilder.Entity("WebAppAss.Models.BasketItem", b =>
-                {
-                    b.Property<int>("BasketID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ItemID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ItemType")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("BasketID", "ItemID", "ItemType");
-
-                    b.ToTable("BasketItems");
-                });
-
             modelBuilder.Entity("WebAppAss.Models.Burger", b =>
                 {
                     b.Property<int>("Id")
@@ -304,45 +274,6 @@ namespace WebAppAss.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Burgers");
-                });
-
-            modelBuilder.Entity("WebAppAss.Models.CheckoutCustomer", b =>
-                {
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("BasketID")
-                        .HasColumnType("int");
-
-                    b.HasKey("Email");
-
-                    b.HasIndex("BasketID");
-
-                    b.ToTable("CheckoutCustomers");
-                });
-
-            modelBuilder.Entity("WebAppAss.Models.CheckoutItem", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<string>("Item_Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("Money");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("CheckoutItems");
                 });
 
             modelBuilder.Entity("WebAppAss.Models.Dessert", b =>
@@ -433,45 +364,6 @@ namespace WebAppAss.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Drinks");
-                });
-
-            modelBuilder.Entity("WebAppAss.Models.OrderHistory", b =>
-                {
-                    b.Property<int>("OrderNo")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderNo"), 1L, 1);
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("OrderNo");
-
-                    b.ToTable("OrderHistories");
-                });
-
-            modelBuilder.Entity("WebAppAss.Models.OrderItem", b =>
-                {
-                    b.Property<int>("OrderNo")
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
-
-                    b.Property<int>("ItemID")
-                        .HasColumnType("int")
-                        .HasColumnOrder(1);
-
-                    b.Property<string>("ItemType")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnOrder(2);
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrderNo", "ItemID", "ItemType");
-
-                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("WebAppAss.Models.Side", b =>
@@ -567,26 +459,6 @@ namespace WebAppAss.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("WebAppAss.Models.BasketItem", b =>
-                {
-                    b.HasOne("WebAppAss.Models.Basket", "Basket")
-                        .WithMany()
-                        .HasForeignKey("BasketID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Basket");
-                });
-
-            modelBuilder.Entity("WebAppAss.Models.CheckoutCustomer", b =>
-                {
-                    b.HasOne("WebAppAss.Models.Basket", "Basket")
-                        .WithMany()
-                        .HasForeignKey("BasketID");
-
-                    b.Navigation("Basket");
                 });
 #pragma warning restore 612, 618
         }

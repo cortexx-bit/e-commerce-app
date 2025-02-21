@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAppAss.Data;
 
@@ -11,9 +12,10 @@ using WebAppAss.Data;
 namespace WebAppAss.Migrations
 {
     [DbContext(typeof(WebAppAssContext))]
-    partial class WebAppAssContextModelSnapshot : ModelSnapshot
+    [Migration("20250221174617_AddOrderHistoryTables")]
+    partial class AddOrderHistoryTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -447,6 +449,9 @@ namespace WebAppAss.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("Money");
+
                     b.HasKey("OrderNo");
 
                     b.ToTable("OrderHistories");
@@ -465,6 +470,9 @@ namespace WebAppAss.Migrations
                     b.Property<string>("ItemType")
                         .HasColumnType("nvarchar(450)")
                         .HasColumnOrder(2);
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("Money");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");

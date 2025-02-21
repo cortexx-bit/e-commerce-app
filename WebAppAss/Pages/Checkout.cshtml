@@ -1,0 +1,42 @@
+﻿@page
+@model WebAppAss.Pages.CheckoutModel
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<h1>Checkout</h1>
+
+@if (Model.Items.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.Item_Name</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Price.ToString("C")</td>
+                    <td>@((item.Quantity * item.Price).ToString("C"))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h3>Total: @Model.Total.ToString("C")</h3>
+
+    <form method="post" asp-page-handler="Buy">
+        <button type="submit" class="btn btn-success">Complete Purchase</button>
+    </form>
+}
+else
+{
+    <p>Your basket is empty.</p>
+}

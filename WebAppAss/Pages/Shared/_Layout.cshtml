@@ -15,38 +15,59 @@
         <nav class="navbar navbar-custom">
             <div class="container">
                 <!-- Logo on the left -->
-                <a class="navbar-brand" href="/">
+                <a class="navbar-brand" asp-page="/Index">
                     <img src="~/img/logo.png" alt="Sam&Ella's Logo">
                 </a>
                 <!-- Centered navigation links -->
                 <ul class="navbar-nav navbar-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="/Menu">Menu</a>
+                        <a class="nav-link" asp-page="/Menu">Menu</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Hours&location">Hours & Location</a>
+                        <a class="nav-link" asp-page="/HoursAndLocation">Hours & Location</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Discover">Discover</a>
+                        <a class="nav-link" asp-page="/Discover">Discover</a>
                     </li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/Admin/Index">Admin</a>
+                        </li>
+                    }
                 </ul>
                 <!-- Right section: Account login and cart -->
                 <div class="navbar-right">
                     <div class="nav-item">
-                        <a class="nav-link" href="/Account/Login">
-                            <i class="bi bi-person-circle"></i>
-                            <span>Sign up/Login</span>
-                        </a>
-                    </div>
-                    <div class="nav-item">
-                        <a class="nav-link" href="/Cart">
+                        <a class="nav-link" asp-page="/Checkout">
                             <i class="bi bi-cart"></i>
                         </a>
                     </div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <!-- If user is logged in, show welcome message and logout button -->
+                        <div class="nav-item">
+                            <span class="nav-link text-light">@User.Identity.Name</span>
+                        </div>
+                        <div class="nav-item">
+                            <form method="post" asp-area="Identity" asp-page="/Account/Logout">
+                                <button type="submit" class="btn btn-outline-light">Logout</button>
+                            </form>
+                        </div>
+                    }
+                    else
+                    {
+                        <!-- If user is not logged in, show login/signup button -->
+                        <div class="nav-item">
+                            <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">
+                                <i class="bi bi-person-circle"></i>
+                                <span>Sign up/Login</span>
+                            </a>
+                        </div>
+                    }
                 </div>
             </div>
         </nav>
-
     </header>
     <div class="container-fluid">
         <main role="main" class="pb-3">
@@ -70,6 +91,8 @@
             &copy; 2024 - Sam&Ella's Burgers
         </div>
         <div class="links">
+            <a href="https://validator.w3.org/#validate_by_uri" target="_blank">Validate HTML</a>
+            <a href="https://jigsaw.w3.org/css-validator/" target="_blank">Validate CSS</a>
             <a asp-area="" asp-page="/Privacy">Privacy Policy</a>
             <a asp-area="" asp-page="/Contactus">Contact Us</a>
             <a asp-area="" asp-page="/EmailSignup" class="btn btn-signup">Email signup</a>

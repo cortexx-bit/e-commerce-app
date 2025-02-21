@@ -34,30 +34,3 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
-<form method="get">
-    <p>
-        <select asp-for="ItemCategory" asp-items="Model.Categories">
-            <option value="">All Categories</option>
-        </select>
-        <label>Name: <input type="text" asp-for="SearchString" /></label>
-        <input type="submit" value="Search" />
-    </p>
-</form>
-@if (Model.SearchResults.Any())
-{
-    <h2>Search Results</h2>
-    <div class="food-container">
-        @foreach (var item in Model.SearchResults)
-        {
-            <div class="food-item">
-                <h3>@item.Name</h3>
-                <p>@item.Description</p>
-                <p>@item.Price.ToString("C")</p>
-            </div>
-        }
-    </div>
-}
-else if (!string.IsNullOrEmpty(Model.SearchString))
-{
-    <p>No results found for "<strong>@Model.SearchString</strong>".</p>
-}

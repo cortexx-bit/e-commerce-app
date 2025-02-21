@@ -1,0 +1,37 @@
+﻿@page
+@model WebAppAss.Pages.HoursAndLocationModel
+@{
+    ViewData["Title"] = "Hours & Location";
+}
+
+<div class="container mt-5">
+    <h1 class="hours-location-title mb-4">Hours & Location</h1>
+
+    <div class="hours-location-wrapper">
+        <!-- Map Section (Left) -->
+        <div class="map-section">
+            <gmpx-api-loader key="AIzaSyCfDBYmYuUvvGnWtbRS9nO6jdavC-us1rY" solution-channel="GMP_QB_locatorplus_v11_c"></gmpx-api-loader>
+            <gmpx-store-locator map-id="DEMO_MAP_ID" class="map-only"></gmpx-store-locator>
+        </div>
+
+        <!-- Hours Section (Right) -->
+        <div class="hours-section">
+            <h2 class="hours-section-title">Location</h2>
+            <p class="hours-section-text">Pepper St, Chester, CH1 1DW</p>
+            <p class="hours-section-text">+44 123-456-789</p>
+
+            <h2 class="hours-section-title">Hours</h2>
+            <ul class="hours-list">
+                <li class="hours-list-item">Monday: 11:00 AM - 9:00 PM</li>
+                <li class="hours-list-item">Tuesday: 11:00 AM - 9:00 PM</li>
+                <li class="hours-list-item">Wednesday: 11:00 AM - 9:00 PM</li>
+                <li class="hours-list-item">Thursday: 11:00 AM - 9:00 PM</li>
+                <li class="hours-list-item">Friday: 12:00 PM - 10:00 PM</li>
+                <li class="hours-list-item">Saturday: 12:00 PM - 10:00 PM</li>
+                <li class="hours-list-item">Sunday: Closed</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/@@googlemaps/extended-component-library/0.6.11/index.min.js"></script>

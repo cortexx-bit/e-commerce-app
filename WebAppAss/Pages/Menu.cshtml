@@ -1,29 +1,53 @@
 ﻿@page
-@model WebAppAss.Pages.MenuModel
+@model MenuModel
 @{
     ViewData["Title"] = "Menu";
 }
 
-<h1>Our Menu</h1>
+<h1>Menu</h1>
 
-<div class="menu-categories">
-    <div class="category">
-        <h2>Burgers</h2>
-        <a asp-page="/Menu/Burger/Index" class="btn btn-primary">View Burgers</a>
-    </div>
+<form method="get">
+    <p>
+        <select asp-for="ItemCategory" asp-items="Model.Categories">
+            <option value="">All Categories</option>
+        </select>
+        <label>Name: <input type="text" asp-for="SearchString" /></label>
+        <input type="submit" value="Search" />
+    </p>
+</form>
 
-    <div class="category">
-        <h2>Sides</h2>
-        <a asp-page="/Menu/Side/Index" class="btn btn-primary">View Sides</a>
+@if (Model.SearchResults.Any())
+{
+    <h2>Search Results</h2>
+    <div class="food-container">
+        @foreach (var item in Model.SearchResults)
+        {
+            <div class="food-item">
+                @if (item.ImageData != null)
+                {
+                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.ImageData)" alt="@item.ImageDescription" class="food-image" />
+                }
+                else
+                {
+                    <img src="/images/no-image.png" alt="No image available" class="food-image" />
+                }
+                <h3>@item.Name</h3>
+                <p class="description">@item.Description</p>
+                <div class="food-footer">
+                    <span class="price">@item.Price.ToString("C")</span>
+                    <form method="post" asp-page-handler="Buy" class="add-to-basket-form">
+                        <input type="hidden" name="itemId" value="@item.Id" />
+                        <input type="hidden" name="quantity" id="hidden-quantity-@item.Id" value="1" />
+                        <input type="hidden" name="itemType" value="@(item is Models.Burger ? "Burger" : item is Models.Drink ? "Drink" : item is Models.Side ? "Side" : "Dessert")" />
+                        <input type="number" class="quantity-input" id="quantity-@item.Id" name="quantity-@item.Id" value="1" min="1" max="20" />
+                        <button type="submit" class="add-to-basket-btn">Add to Basket</button>
+                    </form>
+                </div>
+            </div>
+        }
     </div>
-
-    <div class="category">
-        <h2>Desserts</h2>
-        <a asp-page="/Menu/Dessert/Index" class="btn btn-primary">View Desserts</a>
-    </div>
-
-    <div class="category">
-        <h2>Drinks</h2>
-        <a asp-page="/Menu/Drink/Index" class="btn btn-primary">View Drinks</a>
-    </div>
-</div>
+}
+else if (!string.IsNullOrEmpty(Model.SearchString))
+{
+    <p>No results found for "<strong>@Model.SearchString</strong>".</p>
+}

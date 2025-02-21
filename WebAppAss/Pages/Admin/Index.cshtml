@@ -1,0 +1,32 @@
+﻿@page
+@model WebAppAss.Pages.Admin.IndexModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container mt-5">
+    <h1 class="admin-title mb-4">Admin Dashboard</h1>
+    <p class="admin-lead">Welcome to the administration panel. Use the links below to manage the restaurant's menu, orders, and users.</p>
+
+    <div class="admin-card">
+        <div class="card-header">
+            <h2 class="admin-header">Admin Tools</h2>
+        </div>
+        <div class="card-body">
+            <div class="admin-row">
+                <a asp-page="/Admin/Menu" class="admin-btn">View & Edit Menu</a>
+                <span class="admin-description">Browse and modify all menu items across categories.</span>
+            </div>
+            <div class="admin-row">
+                <a asp-page="/Admin/Orders" class="admin-btn">View Orders</a>
+                <span class="admin-description">See all current and past customer orders.</span>
+            </div>
+            <div class="admin-row">
+                <a asp-page="/Admin/Users" class="admin-btn">Manage Users</a>
+                <span class="admin-description">View and manage registered users and their roles.</span>
+            </div>
+        </div>
+    </div>
+
+    <p class="mt-4 admin-contact">For support or questions, contact the system administrator at <a href="mailto:admin.sam.and.ellas@restaurant.com" class="admin-link">admin.sam.and.ellas@restaurant.com</a>.</p>
+</div>

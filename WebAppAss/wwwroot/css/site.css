@@ -59,6 +59,7 @@ main {
 /* Right section: Account login and cart */
 .navbar-custom .navbar-right {
     display: flex;
+    align-items: center;
 }
 
     .navbar-custom .navbar-right .nav-item i {
@@ -78,10 +79,12 @@ main {
         display: flex;
         align-items: center;
         gap: 5px;
+        line-height: 27px;
     }
-
-
-
+    .navbar-custom .navbar-right .btn {
+        line-height: 27px; 
+        padding: 0.25rem 0.75rem; 
+    }
 
 /* Accessibility enhancements */
 .navbar-toggler:focus {
@@ -177,6 +180,7 @@ main {
 
     .footer .copyright {
         font-size: 12px;
+        margin-left: 450px;
         color: #c7c7c7;
         text-align: center;
         flex: 1;
@@ -219,7 +223,7 @@ main {
 
 
 
-/* Index page carousel and flexbox */
+/* Index page carousel */
 .carousel {
     height: calc(100vh - 100px); 
     overflow: hidden; 
@@ -236,20 +240,153 @@ main {
         width: 100%;
     }
 
+/*Hours & Location page styling*/
+.hours-location-wrapper {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.map-section, .hours-section {
+    flex: 1;
+    min-width: 300px; 
+}
+
+.map-only gmpx-store-locator-panel,
+.map-only .gmpx-panel {
+    display: none !important;
+}
+
+.map-only .gmpx-map {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+gmpx-store-locator {
+    --gmpx-color-surface: #333333; /* Darker background for map */
+    --gmpx-color-on-surface: #E0E0E0; /* Light text for map elements */
+    --gmpx-color-on-surface-variant: #c7c7c7; /* Secondary text color */
+    --gmpx-color-primary: #1e90ff; /* Blue for map controls */
+    --gmpx-color-outline: #c7c7c7; /* Border color */
+    --gmpx-fixed-panel-width-row-layout: 0; /* Hide panel */
+    --gmpx-fixed-panel-height-column-layout: 0; /* Hide panel */
+    --gmpx-font-family-base: "Roboto", sans-serif;
+    --gmpx-font-family-headings: "Roboto", sans-serif;
+    --gmpx-font-size-base: 0.875rem;
+    --gmpx-hours-color-open: #188038;
+    --gmpx-hours-color-closed: #d50000;
+    --gmpx-rating-color: #ffb300;
+    --gmpx-rating-color-empty: #e0e0e0;
+}
+
+.hours-section-title {
+    color: #E0E0E0;
+    margin-bottom: 10px;
+}
+
+.hours-section-text, .hours-list-item {
+    color: #c7c7c7;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.hours-list {
+    list-style: none;
+    padding: 0;
+}
+
+.hours-location-title {
+    color: #E0E0E0;
+}
+
+/*User Menu Page Styling*/
 .food-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    justify-content: center;
 }
 
 .food-item {
-    border: 1px solid #ddd;
-    padding: 15px;
-    width: 250px;
+    border: 1px solid #c7c7c7;
+    padding: 20px;
+    width: 350px;
+    background-color: #1c1c1c;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.food-image {
+    width: 100%;
+    max-width: 325px;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 15px;
 }
 
+.description {
+    font-size: 14px;
+    color: #c7c7c7;
+    margin: 10px 0;
+}
 
-/* Contact Us page styles */
+.food-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: auto;
+    padding-top: 15px;
+}
+
+.price {
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
+}
+
+.add-to-basket-form {
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+    margin: 0;
+}
+
+    .add-to-basket-form label {
+        color: #E0E0E0;
+        font-size: 14px;
+    }
+
+.quantity-input {
+    width: 50px;
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #c7c7c7;
+    border-radius: 3px; 
+    background-color: #121212;
+    color: #E0E0E0;
+}
+
+.add-to-basket-btn {
+    background-color: #1e90ff;
+    color: #E0E0E0;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+    .add-to-basket-btn:hover {
+        background-color: #0047ab;
+
+    }
+
+/* Contact Us Page Styles */
 .contact-container {
     text-align: center;
     padding: 20px;
@@ -296,7 +433,7 @@ main {
     color: green;
 }
 
-/*Menu page table layout*/
+/*CRUD Menu Pages layout*/
 .table {
     color: white; 
 }
@@ -327,7 +464,63 @@ main {
     object-fit: cover; 
     border-radius: 5px;
 }
-/* Menu Page Styling */
+/* Admin main page styling */
+.admin-card {
+    background-color: #1c1c1c;
+    border: 1px solid #c7c7c7;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+}
+
+    .admin-card .card-header {
+        background-color: #121212;
+        border-bottom: 1px solid #c7c7c7;
+    }
+
+.admin-title, .admin-header {
+    color: #E0E0E0;
+}
+
+.admin-lead, .admin-contact, .admin-small {
+    color: #c7c7c7;
+}
+
+.admin-btn {
+    background-color: #1e90ff;
+    color: #E0E0E0;
+    padding: 8px 15px;
+    border-radius: 3px;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s;
+    margin-right: 15px;
+    min-width: 150px;
+}
+
+    .admin-btn:hover {
+        background-color: #0047ab;
+        color: #E0E0E0;
+    }
+
+.admin-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap; 
+}
+
+.admin-link {
+    color: #1e90ff;
+    text-decoration: none;
+}
+
+    .admin-link:hover {
+        text-decoration: underline;
+        color: #0047ab;
+    }
+/* Admin Menu Page Styling */
 .menu-categories {
     display: flex;
     flex-wrap: wrap;
@@ -341,7 +534,7 @@ main {
     border-radius: 8px;
     padding: 20px;
     text-align: center;
-    flex: 1 1 calc(25% - 40px); /* 4 categories per row */
+    flex: 1 1 calc(25% - 40px); 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -355,7 +548,56 @@ main {
         width: 100%;
         margin-top: 10px;
     }
+
 /*Details page styling*/
 img-fluid {
     max-width: 300px;
+}
+
+/*Login/register pages styling*/
+.form-control {
+    color: #E0E0E0 !important; 
+    background-color: #121212;
+    border: 1px solid #c7c7c7; 
+}
+
+::placeholder {
+    color: #c7c7c7 !important; 
+    opacity: 1; 
+}
+
+.form-control:focus {
+    color: #E0E0E0 !important;
+    background-color: #121212;
+    border-color: #1e90ff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
+}
+.login-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 80vh; 
+}
+
+.login-box {
+    width: 100%;
+    max-width: 500px; 
+    padding: 20px;
+    background-color: #1c1c1c; 
+    border-radius: 10px; 
+}
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.register-box {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    background-color: #1c1c1c;
+    border-radius: 10px;
 }

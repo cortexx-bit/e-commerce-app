@@ -10,80 +10,84 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Burger[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Burger[0].Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Burger[0].Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Burger[0].Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Burger[0].IsVegetarian)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Burger[0].IsAvailable)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Burger[0].Special)
-            </th>
-            <th>
-                @Html.DisplayNameFor(Model => Model.Burger[0].ImageData)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Burger) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsVegetarian)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsAvailable)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Special)
-            </td>
-            @{
-                try
-                {
-                    <td>
-                        <img class="img-small" src="data:image;base64,@Convert.ToBase64String(item.ImageData)"
-                            alt="@item.ImageDescription" />
-                    </td>
-                }
-                catch
-                {
-                    <td>
-                        <img class="img-small" src="~/img/no-image.png" alt="No image provided" />
-                    </td>
-                }
-            }
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<form method="post">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.Burger[0].Name)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Burger[0].Description)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Burger[0].Price)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Burger[0].Type)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Burger[0].IsVegetarian)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Burger[0].IsAvailable)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Burger[0].Special)
+				</th>
+				<th>
+					@Html.DisplayNameFor(Model => Model.Burger[0].ImageData)
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model.Burger)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Name)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Description)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Price)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Type)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.IsVegetarian)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.IsAvailable)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Special)
+					</td>
+					@{
+						try
+						{
+							<td>
+								<img class="img-small" src="data:image;base64,@Convert.ToBase64String(item.ImageData)"
+									 alt="@item.ImageDescription" />
+							</td>
+						}
+						catch
+						{
+							<td>
+								<img class="img-small" src="~/img/no-image.png" alt="No image provided" />
+							</td>
+						}
+					}
+					<td>
+						<a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+						<a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+						<a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</form>
+

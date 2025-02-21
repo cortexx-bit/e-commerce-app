@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace WebAppAss.Pages
 {
-    public class CartModel : PageModel
+    public class HoursAndLocationModel : PageModel
     {
         public void OnGet()
         {
