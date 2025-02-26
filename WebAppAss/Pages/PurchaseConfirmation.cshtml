@@ -1,0 +1,12 @@
+﻿@page
+@model WebAppAss.Pages.PurchaseConfirmationModel
+@{
+    ViewData["Title"] = "Purchase Confirmation";
+}
+
+<div class="confirmation-container">
+    <h1>Thank You for Your Purchase!</h1>
+    <p>Your order number is: <strong>@Model.OrderNumber</strong></p>
+    <p>We will send you a confirmation email shortly.</p>
+    <a asp-page="/Index" class="btn btn-primary">Return to Home</a>
+</div>

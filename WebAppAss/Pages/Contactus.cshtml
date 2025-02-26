@@ -8,6 +8,7 @@
     <img src="~/img/logo.png" alt="WebAppAss Logo">
     <h1>Contact Us</h1>
     <p>Send us a message and we’ll get back to you as soon as possible. We do not check emails during service so we can keep up with your orders! Thank you.</p>
+    <!-- Form for users to submit contact information and messages -->
     <form class="contact-form" id="contactForm">
         <div class="form-group">
             <label for="name">Name</label>
@@ -27,11 +28,8 @@
         </div>
         <button type="submit" class="btn btn-primary">Send</button>
     </form>
+    <!-- Success message displayed after form submission -->
     <div class="success-message" id="successMessage" style="display: none;">
         Your message has been successfully sent.
     </div>
 </div>
-
-@section Scripts {
-    <script src="~/js/site.js" asp-append-version="true"></script>
-}

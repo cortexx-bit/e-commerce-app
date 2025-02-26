@@ -1,53 +1,13 @@
 ﻿@page "{id:int}"
 @model WebAppAss.Pages.Menu.Drink.DetailsModel
-
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Drink Details";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Drink</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Drink.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Drink.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Drink.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Drink.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Drink.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Drink.Price)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Drink.Size)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Drink.Size)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Drink.IsAlcoholic)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Drink.IsAlcoholic)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Drink.IsAvailable)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Drink.IsAvailable)
-        </dd>
-        <dd class="col-sm-10">
+<div class="container mt-5">
+    <div class="row">
+        <!-- Left Column: Large Image -->
+        <div class="col-md-6">
             @if (Model.Drink.ImageData != null)
             {
                 <img src="data:image;base64,@Convert.ToBase64String(Model.Drink.ImageData)"
@@ -56,12 +16,41 @@
             }
             else
             {
-                <span class="text-muted">No image available</span>
+                <img src="/images/no-image.png" alt="No image available" class="img-fluid" />
             }
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Drink?.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+        </div>
+
+        <!-- Right Column: Details and Add to Basket -->
+        <div class="col-md-6">
+            <h2>@Model.Drink.Name</h2>
+            <p>@Model.Drink.Description</p>
+            <p>
+                <strong>Size:</strong> @Model.Drink.Size
+            </p>
+            <p>
+                @if (Model.Drink.IsAlcoholic)
+                {
+                    <span class="badge badge-danger">Alcoholic</span>
+                }
+                else
+                {
+                    <span class="badge badge-success">Non-Alcoholic</span>
+                }
+            </p>
+            <h3>@Model.Drink.Price.ToString("C")</h3>
+
+            <!-- Add to Basket Form -->
+            <form method="post" asp-page-handler="Buy">
+                <input type="hidden" name="itemId" value="@Model.Drink.Id" />
+                <input type="hidden" name="itemType" value="Drink" />
+
+                <div class="form-group">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" class="form-control" id="quantity" name="quantity" value="1" min="1" max="20" />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add to Basket</button>
+            </form>
+        </div>
+    </div>
 </div>

@@ -8,32 +8,56 @@
 
 @if (Model.Items.Any())
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Items)
-            {
+    <!-- Form to handle basket updates, removals, and purchases -->
+    <form method="post">
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@item.Item_Name</td>
-                    <td>@item.Quantity</td>
-                    <td>@item.Price.ToString("C")</td>
-                    <td>@((item.Quantity * item.Price).ToString("C"))</td>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Actions</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <!-- Loop through each item in the basket to display and allow modifications -->
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.Item_Name</td>
+                        <td>
+                            <input type="number" name="quantity[@item.CompositeID]" value="@item.Quantity" min="1" max="20" class="quantity-input" />
+                        </td>
+                        <td>@item.Price.ToString("C")</td>
+                        <td>@((item.Quantity * item.Price).ToString("C"))</td>
+                        <td>
+                            <button type="submit"
+                                    asp-page-handler="Remove"
+                                    asp-route-id="@item.CompositeID"
+                                    class="btn-dark remove-btn">
+                                Remove
+                            </button>
+                        </td>
+                    </tr>
+                }
 
-    <h3>Total: @Model.Total.ToString("C")</h3>
+            </tbody>
+        </table>
 
-    <form method="post" asp-page-handler="Buy">
-        <button type="submit" class="btn btn-success">Complete Purchase</button>
+        <h3>Total: @Model.Total.ToString("C")</h3>
+
+        <!-- Group of buttons for updating the basket and completing the purchase -->
+        <div class="button-group">
+            <!-- Update basket button posts to the Update handler -->
+            <button type="submit" asp-page-handler="Update" class="btn-dark">
+                Update Basket
+            </button>
+            <!-- Complete purchase button posts to the Buy handler -->
+            <button type="submit" asp-page-handler="Buy" class="btn-dark">
+                Complete Purchase
+            </button>
+        </div>
     </form>
 }
 else

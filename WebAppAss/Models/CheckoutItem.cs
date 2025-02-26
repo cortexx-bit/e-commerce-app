@@ -15,6 +15,7 @@ namespace WebAppAss.Models
         public string Item_Name { get; set; }
         [Required]
         public int Quantity { get; set; }
+        public string CompositeID { get; set; }
 
     }
 }

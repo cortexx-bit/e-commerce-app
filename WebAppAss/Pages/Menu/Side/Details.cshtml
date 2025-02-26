@@ -1,47 +1,13 @@
 ﻿@page "{id:int}"
 @model WebAppAss.Pages.Menu.Side.DetailsModel
-
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Side Details";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Side</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Side.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Side.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Side.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Side.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Side.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Side.Price)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Side.Size)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Side.Size)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Side.IsAvailable)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Side.IsAvailable)
-        </dd>
-        <dd class="col-sm-10">
+<div class="container mt-5">
+    <div class="row">
+        <!-- Left Column: Large Image -->
+        <div class="col-md-6">
             @if (Model.Side.ImageData != null)
             {
                 <img src="data:image;base64,@Convert.ToBase64String(Model.Side.ImageData)"
@@ -50,12 +16,31 @@
             }
             else
             {
-                <span class="text-muted">No image available</span>
+                <img src="/images/no-image.png" alt="No image available" class="img-fluid" />
             }
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Side?.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+        </div>
+
+        <!-- Right Column: Details and Add to Basket -->
+        <div class="col-md-6">
+            <h2>@Model.Side.Name</h2>
+            <p>@Model.Side.Description</p>
+            <p>
+                <strong>Size:</strong> @Model.Side.Size
+            </p>
+            <h3>@Model.Side.Price.ToString("C")</h3>
+
+            <!-- Add to Basket Form -->
+            <form method="post" asp-page-handler="Buy">
+                <input type="hidden" name="itemId" value="@Model.Side.Id" />
+                <input type="hidden" name="itemType" value="Side" />
+
+                <div class="form-group">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" class="form-control" id="quantity" name="quantity" value="1" min="1" max="20" />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add to Basket</button>
+            </form>
+        </div>
+    </div>
 </div>

@@ -8,13 +8,13 @@
     <h1 class="hours-location-title mb-4">Hours & Location</h1>
 
     <div class="hours-location-wrapper">
-        <!-- Map Section (Left) -->
+        <!-- Section displaying the restaurant's location on a Google Map -->
         <div class="map-section">
             <gmpx-api-loader key="AIzaSyCfDBYmYuUvvGnWtbRS9nO6jdavC-us1rY" solution-channel="GMP_QB_locatorplus_v11_c"></gmpx-api-loader>
             <gmpx-store-locator map-id="DEMO_MAP_ID" class="map-only"></gmpx-store-locator>
         </div>
 
-        <!-- Hours Section (Right) -->
+        <!-- Section displaying the restaurant's operating hours and contact information -->
         <div class="hours-section">
             <h2 class="hours-section-title">Location</h2>
             <p class="hours-section-text">Pepper St, Chester, CH1 1DW</p>
@@ -33,5 +33,5 @@
         </div>
     </div>
 </div>
-
+<!-- Script to load the Google Maps Extended Component Library for the store location functionality -->
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/@@googlemaps/extended-component-library/0.6.11/index.min.js"></script>

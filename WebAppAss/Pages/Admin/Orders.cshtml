@@ -1,0 +1,42 @@
+﻿@page
+@model WebAppAss.Pages.Admin.OrdersModel
+@{
+    ViewData["Title"] = "Order History";
+}
+
+<div class="container mt-5">
+    <h1>Order History</h1>
+    @if (Model.Orders != null && Model.Orders.Any())
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Order Number</th>
+                    <th>Email</th>
+                    <th>Items</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model.Orders)
+                {
+                    <tr>
+                        <td>@order.OrderNo</td>
+                        <td>@order.Email</td>
+                        <td>
+                            <ul>
+                                @foreach (var item in order.Items)
+                                {
+                                    <li>@item.ItemName – Quantity: @item.Quantity</li>
+                                }
+                            </ul>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No orders found.</p>
+    }
+</div>

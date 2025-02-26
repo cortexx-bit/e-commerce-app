@@ -1,5 +1,5 @@
 ﻿// site.js
-
+// Contact us form submission script
 document.addEventListener('DOMContentLoaded', function () {
     const contactForm = document.getElementById('contactForm');
     const successMessage = document.getElementById('successMessage');

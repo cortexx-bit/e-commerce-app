@@ -12,11 +12,13 @@ namespace WebAppAss.Pages
     {
         private readonly WebAppAssContext _context;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IBasketService _basketService;
 
-        public MenuModel(WebAppAssContext context, UserManager<IdentityUser> userManager)
+        public MenuModel(WebAppAssContext context, UserManager<IdentityUser> userManager, IBasketService basketService)
         {
             _context = context;
             _userManager = userManager;
+            _basketService = basketService;
         }
 
         public IList<MenuItem> SearchResults { get; set; } = new List<MenuItem>();
@@ -29,12 +31,18 @@ namespace WebAppAss.Pages
 
         public SelectList? Categories { get; set; }
 
+        // Retrieves and filters menu items based on search criteria for display on the menu page
         public async Task<IActionResult> OnGetAsync()
         {
-            IQueryable<string> categoryQuery = _context.Burgers.Select(b => "Burgers")
-                .Union(_context.Drinks.Select(d => "Drinks"))
-                .Union(_context.Sides.Select(s => "Sides"))
-                .Union(_context.Desserts.Select(d => "Desserts"))
+            IQueryable<string> categoryQuery = _context.Burgers
+                .Where(b => b.IsAvailable) 
+                .Select(b => "Burgers")
+                .Union(_context.Drinks.Where(d => d.IsAvailable) 
+                    .Select(d => "Drinks"))
+                .Union(_context.Sides.Where(s => s.IsAvailable) 
+                    .Select(s => "Sides"))
+                .Union(_context.Desserts.Where(d => d.IsAvailable) 
+                    .Select(d => "Desserts"))
                 .Distinct();
 
             var menuItems = await GetAllMenuItems();
@@ -69,6 +77,7 @@ namespace WebAppAss.Pages
             return Page();
         }
 
+        // Handles adding a menu item to the user's basket
         public async Task<IActionResult> OnPostBuyAsync(int itemId, int quantity, string itemType)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -78,39 +87,42 @@ namespace WebAppAss.Pages
                 .FirstOrDefaultAsync(c => c.Email == user.Email);
             if (customer == null || !customer.BasketID.HasValue) return RedirectToPage();
 
-            var basketItem = await _context.BasketItems
-                .FirstOrDefaultAsync(bi => bi.BasketID == customer.BasketID && bi.ItemID == itemId && bi.ItemType == itemType);
+            MenuItem item = await GetMenuItemByIdAndType(itemId, itemType);
+            if (item == null || !item.IsAvailable)
+            {
+                ModelState.AddModelError("", "This item is currently out of stock and cannot be added to your basket.");
+                return Page();
+            }
 
-            if (basketItem == null)
-            {
-                _context.BasketItems.Add(new BasketItem
-                {
-                    BasketID = customer.BasketID.Value,
-                    ItemID = itemId,
-                    ItemType = itemType,
-                    Quantity = quantity
-                });
-            }
-            else
-            {
-                basketItem.Quantity += quantity;
-            }
-            await _context.SaveChangesAsync();
+            await _basketService.AddItemToBasketAsync(user, itemId, quantity, itemType);
             return RedirectToPage();
         }
 
+        // Retrieves all menu items from the database for filtering
         private async Task<List<MenuItem>> GetAllMenuItems()
         {
-            var burgers = await _context.Burgers.AsNoTracking().ToListAsync();
-            var drinks = await _context.Drinks.AsNoTracking().ToListAsync();
-            var sides = await _context.Sides.AsNoTracking().ToListAsync();
-            var desserts = await _context.Desserts.AsNoTracking().ToListAsync();
+            var burgers = await _context.Burgers.AsNoTracking().Where(b => b.IsAvailable).ToListAsync();
+            var drinks = await _context.Drinks.AsNoTracking().Where(d => d.IsAvailable).ToListAsync(); 
+            var sides = await _context.Sides.AsNoTracking().Where(s => s.IsAvailable).ToListAsync(); 
+            var desserts = await _context.Desserts.AsNoTracking().Where(d => d.IsAvailable).ToListAsync();
 
+            // Combine all menu items into a single list
             return burgers.Cast<MenuItem>()
                 .Concat(drinks)
                 .Concat(sides)
                 .Concat(desserts)
                 .ToList();
+        }
+        private async Task<MenuItem> GetMenuItemByIdAndType(int itemId, string itemType)
+        {
+            return itemType switch
+            {
+                "Burger" => await _context.Burgers.FirstOrDefaultAsync(b => b.Id == itemId),
+                "Drink" => await _context.Drinks.FirstOrDefaultAsync(d => d.Id == itemId),
+                "Side" => await _context.Sides.FirstOrDefaultAsync(s => s.Id == itemId),
+                "Dessert" => await _context.Desserts.FirstOrDefaultAsync(d => d.Id == itemId),
+                _ => null
+            };
         }
     }
 }

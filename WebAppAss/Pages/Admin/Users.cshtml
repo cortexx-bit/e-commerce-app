@@ -1,0 +1,30 @@
+﻿@page
+@model WebAppAss.Pages.Admin.UsersModel
+@{
+    ViewData["Title"] = "Manage Users";
+}
+
+<div class="container mt-5">
+    <h1>Manage Users</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>@user.PhoneNumber</td>
+                    <td>@user.Role</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,47 +1,13 @@
 ﻿@page "{id:int}"
 @model WebAppAss.Pages.Menu.Dessert.DetailsModel
-
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Dessert Details";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Dessert</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Dessert.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Dessert.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Dessert.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Dessert.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Dessert.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Dessert.Price)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Dessert.IsWarmDessert)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Dessert.IsWarmDessert)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Dessert.IsAvailable)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Dessert.IsAvailable)
-        </dd>
-        <dd class="col-sm-10">
+<div class="container mt-5">
+    <div class="row">
+        <!-- Left Column: Large Image -->
+        <div class="col-md-6">
             @if (Model.Dessert.ImageData != null)
             {
                 <img src="data:image;base64,@Convert.ToBase64String(Model.Dessert.ImageData)"
@@ -50,12 +16,40 @@
             }
             else
             {
-                <span class="text-muted">No image available</span>
+                <img src="/images/no-image.png" alt="No image available" class="img-fluid" />
             }
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Dessert?.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+        </div>
+
+        <!-- Right Column: Details and Add to Basket -->
+        <div class="col-md-6">
+            <h2>@Model.Dessert.Name</h2>
+            <p>@Model.Dessert.Description</p>
+
+            <p>
+                @if (Model.Dessert.IsWarmDessert)
+                {
+                    <span class="badge badge-warning">Warm Dessert</span>
+                }
+                else
+                {
+                    <span class="badge badge-secondary">Not a Warm Dessert</span>
+                }
+            </p>
+
+            <h3>@Model.Dessert.Price.ToString("C")</h3>
+
+            <!-- Add to Basket Form -->
+            <form method="post" asp-page-handler="Buy">
+                <input type="hidden" name="itemId" value="@Model.Dessert.Id" />
+                <input type="hidden" name="itemType" value="Dessert" />
+
+                <div class="form-group">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" class="form-control" id="quantity" name="quantity" value="1" min="1" max="20" />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add to Basket</button>
+            </form>
+        </div>
+    </div>
 </div>

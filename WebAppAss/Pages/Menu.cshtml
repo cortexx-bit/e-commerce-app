@@ -5,7 +5,7 @@
 }
 
 <h1>Menu</h1>
-
+<!-- Form for filtering menu items by category and name -->
 <form method="get">
     <p>
         <select asp-for="ItemCategory" asp-items="Model.Categories">
@@ -22,19 +22,45 @@
     <div class="food-container">
         @foreach (var item in Model.SearchResults)
         {
+            <!-- Individual card for each menu item -->
             <div class="food-item">
-                @if (item.ImageData != null)
-                {
-                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.ImageData)" alt="@item.ImageDescription" class="food-image" />
+                @{
+                    string detailsPage = "";
+                    if (item is Models.Burger)
+                    {
+                        detailsPage = "/Menu/Burger/Details";
+                    }
+                    else if (item is Models.Drink)
+                    {
+                        detailsPage = "/Menu/Drink/Details";
+                    }
+                    else if (item is Models.Side)
+                    {
+                        detailsPage = "/Menu/Side/Details";
+                    }
+                    else if (item is Models.Dessert)
+                    {
+                        detailsPage = "/Menu/Dessert/Details";
+                    }
                 }
-                else
-                {
-                    <img src="/images/no-image.png" alt="No image available" class="food-image" />
-                }
-                <h3>@item.Name</h3>
+                <!-- Link to the details page for the item -->
+                <a asp-page="@detailsPage" asp-route-id="@item.Id">
+                    @if (item.ImageData != null)
+                    {
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.ImageData)" alt="@item.ImageDescription" class="food-image" />
+                    }
+                    else
+                    {
+                        <img src="/images/no-image.png" alt="No image available" class="food-image" />
+                    }
+                </a>
+                <a asp-page="@detailsPage" asp-route-id="@item.Id">
+                    <h3>@item.Name</h3>
+                </a>
                 <p class="description">@item.Description</p>
                 <div class="food-footer">
                     <span class="price">@item.Price.ToString("C")</span>
+                    <!-- Form to add the item to the basket -->
                     <form method="post" asp-page-handler="Buy" class="add-to-basket-form">
                         <input type="hidden" name="itemId" value="@item.Id" />
                         <input type="hidden" name="quantity" id="hidden-quantity-@item.Id" value="1" />

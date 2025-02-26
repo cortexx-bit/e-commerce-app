@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Home page";
 }
-
+<!-- Carousel displaying rotating images -->
 <div id="indexCarousel" class="carousel slide" data-ride="carousel" data-interval="3000">
     <ol class="carousel-indicators">
         <li data-target="#indexCarousel" data-slide-to="0" class="active"></li>
@@ -33,4 +33,32 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
+</div>
+<!-- Container for special items section with spacing -->
+<div class="container mt-5">
+    <h2 class="mb-4">Special Items</h2>
+    <div class="food-container">
+        @foreach (var item in Model.SpecialItems)
+        {
+            <div class="food-item">
+                <a asp-page="/Menu/Burger/Details" asp-route-id="@item.Id">
+                    @if (item.ImageData != null)
+                    {
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.ImageData)" alt="@item.ImageDescription" class="food-image" />
+                    }
+                    else
+                    {
+                        <img src="/images/no-image.png" alt="No image available" class="food-image" />
+                    }
+                </a>
+                <a asp-page="/Menu/Burger/Details" asp-route-id="@item.Id">
+                    <h3>@item.Name</h3>
+                </a>
+                <p class="description">@item.Description</p>
+                <div class="food-footer">
+                    <span class="price">@item.Price.ToString("C")</span>
+                </div>
+            </div>
+        }
+    </div>
 </div>

@@ -264,13 +264,13 @@ main {
 }
 
 gmpx-store-locator {
-    --gmpx-color-surface: #333333; /* Darker background for map */
-    --gmpx-color-on-surface: #E0E0E0; /* Light text for map elements */
-    --gmpx-color-on-surface-variant: #c7c7c7; /* Secondary text color */
-    --gmpx-color-primary: #1e90ff; /* Blue for map controls */
-    --gmpx-color-outline: #c7c7c7; /* Border color */
-    --gmpx-fixed-panel-width-row-layout: 0; /* Hide panel */
-    --gmpx-fixed-panel-height-column-layout: 0; /* Hide panel */
+    --gmpx-color-surface: #333333; 
+    --gmpx-color-on-surface: #E0E0E0; 
+    --gmpx-color-on-surface-variant: #c7c7c7; 
+    --gmpx-color-primary: #1e90ff; 
+    --gmpx-color-outline: #c7c7c7; 
+    --gmpx-fixed-panel-width-row-layout: 0; 
+    --gmpx-fixed-panel-height-column-layout: 0; 
     --gmpx-font-family-base: "Roboto", sans-serif;
     --gmpx-font-family-headings: "Roboto", sans-serif;
     --gmpx-font-size-base: 0.875rem;
@@ -385,6 +385,69 @@ gmpx-store-locator {
         background-color: #0047ab;
 
     }
+
+/* Discover Page Styles */
+.discover-banner {
+    width: 100%;
+    padding: 60px 0;
+    background: url('/img/discover-banner.jpg') no-repeat center center;
+    background-size: cover;
+    text-align: left; 
+}
+
+    .discover-banner h1 {
+        font-size: 48px;
+        margin: 0;
+        padding-left: 20px; 
+        color: #E0E0E0;
+    }
+
+.reviews-section {
+    padding: 40px 0;
+    background-color: #121212;
+    text-align: center;
+}
+
+    .reviews-section h2 {
+        margin-bottom: 30px;
+        font-size: 36px;
+        color: #E0E0E0;
+    }
+
+.reviews-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.review {
+    background: #1c1c1c; 
+    border: 1px solid #c7c7c7; 
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 300px;
+    text-align: left;
+}
+
+.review-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.review-content h4 {
+    margin: 0 0 10px;
+    font-size: 18px;
+    color: #E0E0E0; 
+}
+
+.review-content p {
+    font-size: 14px;
+    color: #c7c7c7; 
+}
 
 /* Contact Us Page Styles */
 .contact-container {
@@ -520,6 +583,7 @@ gmpx-store-locator {
         text-decoration: underline;
         color: #0047ab;
     }
+
 /* Admin Menu Page Styling */
 .menu-categories {
     display: flex;
@@ -551,7 +615,7 @@ gmpx-store-locator {
 
 /*Details page styling*/
 img-fluid {
-    max-width: 300px;
+    max-width: 450px;
 }
 
 /*Login/register pages styling*/
@@ -601,3 +665,88 @@ img-fluid {
     background-color: #1c1c1c;
     border-radius: 10px;
 }
+
+/* Basket Page Styles*/
+.quantity-input {
+    width: 80px;
+    padding: 5px;
+    background-color: #121212; 
+    border: 1px solid #c7c7c7; 
+    border-radius: 4px; 
+    color: #E0E0E0; 
+    text-align: center;
+}
+
+    .quantity-input:focus {
+        outline: none;
+        border-color: #1e90ff; 
+        box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
+    }
+
+.remove-btn {
+    background-color: #d50000; 
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+    .remove-btn:hover {
+        background-color: #b30000; 
+    }
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-dark {
+    background-color: #333333; 
+    color: #ffffff; 
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    width: auto; 
+    border-radius: 4px;
+}
+
+    .btn-dark:hover {
+        background-color: #555555;
+    }
+/* Purchase Confirmation Page Styles*/
+.confirmation-container {
+    text-align: center;
+    padding: 40px;
+    margin: 40px auto;
+    max-width: 600px;
+    background-color: #1c1c1c; 
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6); 
+}
+
+    .confirmation-container h1 {
+        font-size: 2.5em;
+        color: #e0e0e0; 
+    }
+
+    .confirmation-container p {
+        font-size: 1.2em;
+        color: #cccccc; 
+    }
+
+    .confirmation-container .btn-primary {
+        margin-top: 20px;
+        background-color: #333333; 
+        color: #e0e0e0;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+    }
+
+        .confirmation-container .btn-primary:hover {
+            background-color: #555555;
+        }

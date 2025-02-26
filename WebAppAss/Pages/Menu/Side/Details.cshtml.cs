@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -12,14 +9,18 @@ namespace WebAppAss.Pages.Menu.Side
 {
     public class DetailsModel : PageModel
     {
-        private readonly WebAppAss.Data.WebAppAssContext _context;
+        private readonly WebAppAssContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IBasketService _basketService;
 
-        public DetailsModel(WebAppAss.Data.WebAppAssContext context)
+        public DetailsModel(WebAppAssContext context, UserManager<IdentityUser> userManager, IBasketService basketService)
         {
             _context = context;
+            _userManager = userManager;
+            _basketService = basketService;
         }
 
-      public WebAppAss.Models.Side Side { get; set; }
+        public Models.Side Side { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,16 +29,31 @@ namespace WebAppAss.Pages.Menu.Side
                 return NotFound();
             }
 
-            var side = await _context.Sides.FirstOrDefaultAsync(m => m.Id == id);
-            if (side == null)
+            Side = await _context.Sides.FirstOrDefaultAsync(m => m.Id == id);
+            if (Side == null)
             {
                 return NotFound();
             }
-            else 
-            {
-                Side = side;
-            }
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostBuyAsync(int Id, int quantity)
+        {
+            Side = await _context.Sides.FirstOrDefaultAsync(b => b.Id == Id);
+            if (Side == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
+            await _basketService.AddItemToBasketAsync(user, Id, quantity, "Side");
+
+            return RedirectToPage("/Menu");
         }
     }
 }

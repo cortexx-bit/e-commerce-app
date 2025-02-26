@@ -6,6 +6,5 @@
         public int ItemID { get; set; }
         public string ItemType { get; set; }
         public int Quantity { get; set; }
-        public Basket Basket { get; set; }
     }
 }

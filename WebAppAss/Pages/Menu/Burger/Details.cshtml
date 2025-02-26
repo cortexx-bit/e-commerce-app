@@ -2,73 +2,54 @@
 @model WebAppAss.Pages.Menu.Burger.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Burger Details";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Burger</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Burger.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Burger.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Burger.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Burger.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Burger.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Burger.Price)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Burger.Type)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Burger.Type)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Burger.IsVegetarian)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Burger.IsVegetarian)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Burger.IsAvailable)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Burger.IsAvailable)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Burger.Special)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Burger.Special)
-        </dd>
-        <dt class="col-sm-2">Image</dt>
-        <dd class="col-sm-10">
+<div class="container mt-5">
+    <div class="row">
+        <!-- Left Column: Big Image -->
+        <div class="col-md-6">
             @if (Model.Burger.ImageData != null)
             {
                 <img src="data:image;base64,@Convert.ToBase64String(Model.Burger.ImageData)"
-                     alt="@Model.Burger.ImageDescription"
-                     class="img-fluid" />
+                     alt="@Model.Burger.ImageDescription" class="img-fluid" />
             }
             else
             {
-                <span class="text-muted">No image available</span>
+                <img src="/images/no-image.png" alt="No image available" class="food-image" />
             }
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Burger?.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+        </div>
+
+        <!-- Right Column: Details and Add to Basket -->
+        <div class="col-md-6">
+            <h2>@Model.Burger.Name</h2>
+            <p>@Model.Burger.Description</p>
+
+            <p>
+                @if (Model.Burger.IsVegetarian)
+                {
+                    <span class="badge badge-success">Vegetarian</span>
+                }
+                @if (Model.Burger.Special)
+                {
+                    <span class="badge badge-warning">Special</span>
+                }
+            </p>
+
+            <h3>@Model.Burger.Price.ToString("C")</h3>
+
+            <!-- Add to Basket Form -->
+            <form method="post" asp-page-handler="Buy">
+                <input type="hidden" name="itemId" value="@Model.Burger.Id" />
+                <input type="hidden" name="itemType" value="Burger" />
+
+                <div class="form-group">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" class="form-control" id="quantity" name="quantity" value="1" min="1" max="20" />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add to Basket</button>
+            </form>
+        </div>
+    </div>
 </div>

@@ -12,9 +12,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<WebAppAssContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("WebAppAssContext")));
 
-//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-//    .AddEntityFrameworkStores<WebAppAssContext>();
-
+// Configure ASP.NET Core Identity for user authentication and roles
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(
     options =>
     {
@@ -44,6 +42,9 @@ builder.Services.AddRazorPages()
     {
         options.Conventions.AuthorizeFolder("/Admin", "RequireAdmins");
     });
+
+builder.Services.AddScoped<IBasketService, BasketService>();
+
 
 var app = builder.Build();
 
@@ -75,6 +76,7 @@ app.UseAuthentication();;
 app.UseAuthorization();
 app.MapRazorPages();
 
+// Apply any pending database migrations and seed identity data
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -85,4 +87,5 @@ using (var scope = app.Services.CreateScope())
     IdentitySeedData.Initialize(context, userMgr, roleMgr).Wait();
 }
 
-    app.Run();
+// Start the app
+app.Run();

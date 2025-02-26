@@ -1,24 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using WebAppAss.Data;
+using WebAppAss.Models;
 
 namespace WebAppAss.Pages.Menu.Dessert
 {
     public class DetailsModel : PageModel
     {
-        private readonly WebAppAss.Data.WebAppAssContext _context;
+        private readonly WebAppAssContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IBasketService _basketService;
 
-        public DetailsModel(WebAppAss.Data.WebAppAssContext context)
+        public DetailsModel(WebAppAssContext context, UserManager<IdentityUser> userManager, IBasketService basketService)
         {
             _context = context;
+            _userManager = userManager;
+            _basketService = basketService;
         }
 
-      public WebAppAss.Models.Dessert Dessert { get; set; }
+        public Models.Dessert Dessert { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -27,16 +29,31 @@ namespace WebAppAss.Pages.Menu.Dessert
                 return NotFound();
             }
 
-            var dessert = await _context.Desserts.FirstOrDefaultAsync(m => m.Id == id);
-            if (dessert == null)
+            Dessert = await _context.Desserts.FirstOrDefaultAsync(m => m.Id == id);
+            if (Dessert == null)
             {
                 return NotFound();
             }
-            else 
-            {
-                Dessert = dessert;
-            }
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostBuyAsync(int Id, int quantity)
+        {
+            Dessert = await _context.Desserts.FirstOrDefaultAsync(b => b.Id == Id);
+            if (Dessert == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
+            await _basketService.AddItemToBasketAsync(user, Id, quantity, "Dessert");
+
+            return RedirectToPage("/Menu");
         }
     }
 }
