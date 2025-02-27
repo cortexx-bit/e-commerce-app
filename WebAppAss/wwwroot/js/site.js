@@ -26,6 +26,58 @@ document.querySelectorAll('.quantity-input').forEach(input => {
         }
     });
 });
+// Client-side validation to clamp quantity to 1-20 and prevent invalid submissions
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('checkoutForm');
+    const quantityInputs = document.querySelectorAll('.quantity-input');
+    const updateButton = document.getElementById('updateButton');
+
+    // Clamp quantity on change and prevent submission with invalid values
+    quantityInputs.forEach(input => {
+        input.addEventListener('change', function () {
+            let value = parseInt(this.value);
+            if (isNaN(value) || value < 1) {
+                this.value = 1; 
+            } else if (value > 20) {
+                this.value = 20;
+            }
+            console.log(`Quantity for item ${this.name} clamped to ${this.value}`);
+        });
+
+        // Prevent Enter key from submitting the form unless quantity is valid
+        input.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); 
+                const value = parseInt(this.value);
+                if (isNaN(value) || value < 1 || value > 20) {
+                    this.value = Math.clamp(value, 1, 20) || 1; 
+                    alert('Quantity must be between 1 and 20. It has been adjusted.');
+                }
+                updateButton.click(); 
+            }
+        });
+    });
+
+    // Ensure form submission only proceeds with valid quantities
+    form.addEventListener('submit', function (event) {
+        let hasInvalidQuantity = false;
+        quantityInputs.forEach(input => {
+            const value = parseInt(input.value);
+            if (isNaN(value) || value < 1 || value > 20) {
+                hasInvalidQuantity = true;
+                input.value = Math.clamp(value, 1, 20) || 1; 
+            }
+        });
+
+        if (hasInvalidQuantity) {
+            event.preventDefault(); 
+            alert('Some quantities were outside the allowed range (1-20) and have been adjusted. Please review and submit again.');
+            updateButton.click();
+        }
+    });
+});
+
+
 
 // Google maps scripts
 document.addEventListener('DOMContentLoaded', async () => {

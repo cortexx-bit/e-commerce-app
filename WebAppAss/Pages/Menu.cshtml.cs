@@ -81,7 +81,10 @@ namespace WebAppAss.Pages
         public async Task<IActionResult> OnPostBuyAsync(int itemId, int quantity, string itemType)
         {
             var user = await _userManager.GetUserAsync(User);
-            if (user == null) return RedirectToPage("/Account/Login");
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login", new {area = "Identity"});
+            }
 
             var customer = await _context.CheckoutCustomers
                 .FirstOrDefaultAsync(c => c.Email == user.Email);

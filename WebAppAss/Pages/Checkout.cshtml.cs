@@ -29,7 +29,10 @@ namespace WebAppAss.Pages
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
-            if (user == null) return RedirectToPage("/Account/Login");
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login", new { area="Identity"});
+            }
 
             var customer = await _db.CheckoutCustomers.FirstOrDefaultAsync(c => c.Email == user.Email);
             if (customer == null || !customer.BasketID.HasValue) return RedirectToPage("/Menu");
@@ -115,6 +118,8 @@ namespace WebAppAss.Pages
                 .Where(b => b.BasketID == customer.BasketID)
                 .ToListAsync();
 
+            bool quantitiesUpdated = false;
+
             foreach (var basketItem in basketItems)
             {
                 // Construct the composite key:
@@ -122,14 +127,20 @@ namespace WebAppAss.Pages
                 if (form.TryGetValue($"quantity[{compositeKey}]", out StringValues quantityValue) &&
                     int.TryParse(quantityValue.FirstOrDefault(), out int newQuantity))
                 {
-                    if (newQuantity >= 1 && newQuantity <= 20)
+                    int updatedQuantity = Math.Clamp(newQuantity, 1, 20);
+                    if (updatedQuantity != basketItem.Quantity) // Only update if the value changes
                     {
-                        basketItem.Quantity = newQuantity;
+                        basketItem.Quantity = updatedQuantity;
+                        quantitiesUpdated = true;
                     }
                 }
             }
 
-            await _db.SaveChangesAsync();
+            if (quantitiesUpdated)
+            {
+                await _db.SaveChangesAsync(); // Save changes to the database only if updates were made
+            }
+
             return RedirectToPage();
         }
 
@@ -139,7 +150,6 @@ namespace WebAppAss.Pages
             if (string.IsNullOrEmpty(id))
                 return BadRequest("Item identifier is required.");
 
-            // Expecting format "ItemType_ItemID", e.g., "Burger_7"
             var parts = id.Split('_');
             if (parts.Length != 2)
                 return BadRequest("Invalid item identifier.");

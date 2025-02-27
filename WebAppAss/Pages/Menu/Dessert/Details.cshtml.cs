@@ -48,7 +48,7 @@ namespace WebAppAss.Pages.Menu.Dessert
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return RedirectToPage("/Account/Login");
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
 
             await _basketService.AddItemToBasketAsync(user, Id, quantity, "Dessert");
