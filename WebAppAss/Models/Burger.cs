@@ -13,5 +13,6 @@ namespace WebAppAss.Models
 
         [Display(Name = "Special")]
         public bool Special { get; set; }
+        
     }
 }

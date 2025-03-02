@@ -8,53 +8,53 @@
 <h1>Create</h1>
 
 <h4>Drink</h4>
-<hr />
+<hr >
 <div class="row">
     <div class="col-md-4">
         <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Drink.Name" class="control-label"></label>
-                <input asp-for="Drink.Name" class="form-control" />
+                <input asp-for="Drink.Name" class="form-control" >
                 <span asp-validation-for="Drink.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Drink.Description" class="control-label"></label>
-                <input asp-for="Drink.Description" class="form-control" />
+                <input asp-for="Drink.Description" class="form-control" >
                 <span asp-validation-for="Drink.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Drink.Price" class="control-label"></label>
-                <input asp-for="Drink.Price" class="form-control" />
+                <input asp-for="Drink.Price" class="form-control" >
                 <span asp-validation-for="Drink.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Drink.Size" class="control-label"></label>
-                <input asp-for="Drink.Size" class="form-control" />
+                <input asp-for="Drink.Size" class="form-control" >
                 <span asp-validation-for="Drink.Size" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Drink.IsAlcoholic" /> @Html.DisplayNameFor(model => model.Drink.IsAlcoholic)
+                    <input class="form-check-input" asp-for="Drink.IsAlcoholic" > @Html.DisplayNameFor(model => model.Drink.IsAlcoholic)
                 </label>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Drink.IsAvailable" /> @Html.DisplayNameFor(model => model.Drink.IsAvailable)
+                    <input class="form-check-input" asp-for="Drink.IsAvailable" > @Html.DisplayNameFor(model => model.Drink.IsAvailable)
                 </label>
             </div>
             <div class="form-group">
                 <label asp-for="Drink.ImageDescription" class="control-label">Image Description (Alt-text)</label>
-                <input asp-for="Drink.ImageDescription" class="form-control" />
+                <input asp-for="Drink.ImageDescription" class="form-control" >
             </div>
             <div class="form-group">
                 <label asp-for="Drink.ImageData" class="control-label">Image Upload</label>
                 <input type="file" id="file1"
                        name="file1"
-                       multiple="multiple" />
+                       multiple="multiple" >
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" >
             </div>
         </form>
     </div>

@@ -25,31 +25,31 @@ namespace WebAppAss.Pages.Menu.Drink
         [BindProperty]
         public WebAppAss.Models.Drink Drink { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string name)
         {
-            if (id == null || _context.Drinks == null)
+            if (string.IsNullOrEmpty(name) || _context.Drinks == null)
             {
                 return NotFound();
             }
 
-            var drink = await _context.Drinks.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (drink == null)
+            Drink = await _context.Drinks.FirstOrDefaultAsync(m => m.Slug == name);
+            if (Drink == null)
             {
                 return NotFound();
-            }
-            else 
-            {
-                Drink = drink;
             }
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync()
         {
+            if (Drink == null || Drink.Id == 0)
+            {
+                return NotFound();
+            }
+
             try
             {
-                var drink = await _context.Drinks.FindAsync(id);
+                var drink = await _context.Drinks.FindAsync(Drink.Id);
                 if (drink == null) return NotFound();
 
                 _context.Drinks.Remove(drink);
@@ -57,7 +57,7 @@ namespace WebAppAss.Pages.Menu.Drink
             }
             catch (DbUpdateException ex)
             {
-                _logger.LogError(ex, "Error deleting drink with ID {DrinkId}", id);
+                _logger.LogError(ex, "Error deleting drink with ID {DrinkId}", Drink.Id);
                 return RedirectToPage("./Error");
             }
 

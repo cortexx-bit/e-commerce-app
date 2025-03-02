@@ -26,36 +26,31 @@ namespace WebAppAss.Pages.Menu.Side
         [BindProperty]
       public WebAppAss.Models.Side Side { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string name)
         {
-            if (id == null || _context.Sides == null)
+            if (string.IsNullOrEmpty(name) || _context.Sides == null)
             {
                 return NotFound();
             }
 
-            var side = await _context.Sides.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (side == null)
+            Side = await _context.Sides.FirstOrDefaultAsync(m => m.Slug == name);
+            if (Side == null)
             {
                 return NotFound();
-            }
-            else 
-            {
-                Side = side;
             }
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync()
         {
-            if (id == null || _context.Sides == null)
+            if (Side == null || Side.Id == 0)
             {
                 return NotFound();
             }
 
             try
             {
-                var side = await _context.Sides.FindAsync(id);
+                var side = await _context.Sides.FindAsync(Side.Id);
                 if (side == null)
                 {
                     return NotFound();
@@ -65,7 +60,7 @@ namespace WebAppAss.Pages.Menu.Side
             }
             catch (DbUpdateException ex)
             {
-                _logger.LogError(ex, "Error deleting side with ID {SideId}", id);
+                _logger.LogError(ex, "Error deleting side with ID {SideId}", Side.Id);
                 return RedirectToPage("./Error");
             }
 

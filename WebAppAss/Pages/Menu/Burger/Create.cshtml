@@ -8,24 +8,24 @@
 <h1>Create</h1>
 
 <h4>Burger</h4>
-<hr />
+<hr >
 <div class="row">
     <div class="col-md-4">
         <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Burger.Name" class="control-label"></label>
-                <input asp-for="Burger.Name" class="form-control" />
+                <input asp-for="Burger.Name" class="form-control" >
                 <span asp-validation-for="Burger.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Burger.Description" class="control-label"></label>
-                <input asp-for="Burger.Description" class="form-control" />
+                <input asp-for="Burger.Description" class="form-control" >
                 <span asp-validation-for="Burger.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Burger.Price" class="control-label"></label>
-                <input asp-for="Burger.Price" class="form-control" />
+                <input asp-for="Burger.Price" class="form-control" >
                 <span asp-validation-for="Burger.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -37,31 +37,31 @@
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Burger.IsVegetarian" /> @Html.DisplayNameFor(model => model.Burger.IsVegetarian)
+                    <input class="form-check-input" asp-for="Burger.IsVegetarian" > @Html.DisplayNameFor(model => model.Burger.IsVegetarian)
                 </label>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Burger.IsAvailable" /> @Html.DisplayNameFor(model => model.Burger.IsAvailable)
+                    <input class="form-check-input" asp-for="Burger.IsAvailable" > @Html.DisplayNameFor(model => model.Burger.IsAvailable)
                 </label>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Burger.Special" /> @Html.DisplayNameFor(model => model.Burger.Special)
+                    <input class="form-check-input" asp-for="Burger.Special" > @Html.DisplayNameFor(model => model.Burger.Special)
                 </label>
             </div>
             <div class="form-group">
                 <label asp-for="Burger.ImageDescription" class="control-label">Image Description (Alt-text)</label>
-                <input asp-for="Burger.ImageDescription" class="form-control"/>
+                <input asp-for="Burger.ImageDescription" class="form-control">
             </div>
             <div class="form-group">
                 <label asp-for="Burger.ImageData" class="control-label">Image Upload</label>
                 <input type="file" id="file1"
                     name="file1"
-                    multiple="multiple" />
+                    multiple="multiple" >
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" >
             </div>
         </form>
     </div>

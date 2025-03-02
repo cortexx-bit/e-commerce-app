@@ -25,17 +25,14 @@ namespace WebAppAss.Pages.Menu.Dessert
         [BindProperty]
         public WebAppAss.Models.Dessert Dessert { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string name)
         {
-            if (id == null || _context.Desserts == null)
+            if (string.IsNullOrEmpty(name) || _context.Desserts == null)
             {
                 return NotFound();
             }
 
-            Dessert = await _context.Desserts
-            .AsNoTracking()
-            .FirstOrDefaultAsync(m => m.Id == id);
-
+            Dessert = await _context.Desserts.FirstOrDefaultAsync(m => m.Slug == name);
             if (Dessert == null)
             {
                 return NotFound();
@@ -45,11 +42,11 @@ namespace WebAppAss.Pages.Menu.Dessert
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync(int id)
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid) return Page();
 
-            var dessertToUpdate = await _context.Desserts.FindAsync(id);
+            var dessertToUpdate = await _context.Desserts.FindAsync(Dessert.Id);
             if (dessertToUpdate == null)
             {
                 return NotFound();
@@ -70,10 +67,12 @@ namespace WebAppAss.Pages.Menu.Dessert
                 d => d.Description,
                 d => d.Price,
                 d => d.IsWarmDessert,
-                d => d.IsAvailable))
+                d => d.IsAvailable,
+                d => d.ImageDescription))
             {
                 try
                 {
+                    dessertToUpdate.Slug = dessertToUpdate.GenerateSlug();
                     await _context.SaveChangesAsync();
                     return RedirectToPage("./Index");
                 }

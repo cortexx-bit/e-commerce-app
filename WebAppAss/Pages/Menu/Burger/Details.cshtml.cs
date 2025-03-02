@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 using WebAppAss.Data;
 using WebAppAss.Models;
 
@@ -22,14 +23,14 @@ namespace WebAppAss.Pages.Menu.Burger
 
         public Models.Burger Burger { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string name)
         {
-            if (id == null || _context.Burgers == null)
+            if (string.IsNullOrEmpty(name) || _context.Burgers == null)
             {
                 return NotFound();
             }
 
-            Burger = await _context.Burgers.FirstOrDefaultAsync(m => m.Id == id);
+            Burger = await _context.Burgers.FirstOrDefaultAsync(m => m.Slug == name);
             if (Burger == null)
             {
                 return NotFound();

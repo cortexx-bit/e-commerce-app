@@ -25,17 +25,14 @@ namespace WebAppAss.Pages.Menu.Drink
         [BindProperty]
         public WebAppAss.Models.Drink Drink { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string name)
         {
-            if (id == null || _context.Drinks == null)
+            if (string.IsNullOrEmpty(name) || _context.Drinks == null)
             {
                 return NotFound();
             }
 
-            Drink = await _context.Drinks
-            .AsNoTracking()
-            .FirstOrDefaultAsync(m => m.Id == id);
-
+            Drink = await _context.Drinks.FirstOrDefaultAsync(m => m.Slug == name);
             if (Drink == null)
             {
                 return NotFound();
@@ -45,11 +42,11 @@ namespace WebAppAss.Pages.Menu.Drink
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync(int id)
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid) return Page();
 
-            var drinkToUpdate = await _context.Drinks.FindAsync(id);
+            var drinkToUpdate = await _context.Drinks.FindAsync(Drink.Id);
             if (drinkToUpdate == null) return NotFound();
             foreach (var file in Request.Form.Files)
             {
@@ -67,10 +64,12 @@ namespace WebAppAss.Pages.Menu.Drink
                 d => d.Price,
                 d => d.Size,
                 d => d.IsAlcoholic,
-                d => d.IsAvailable))
+                d => d.IsAvailable,
+                d => d.ImageDescription))
             {
                 try
                 {
+                    drinkToUpdate.Slug = drinkToUpdate.GenerateSlug();
                     await _context.SaveChangesAsync();
                     return RedirectToPage("./Index");
                 }

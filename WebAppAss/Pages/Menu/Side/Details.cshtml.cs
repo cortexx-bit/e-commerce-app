@@ -22,14 +22,14 @@ namespace WebAppAss.Pages.Menu.Side
 
         public Models.Side Side { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string name)
         {
-            if (id == null || _context.Sides == null)
+            if (string.IsNullOrEmpty(name) || _context.Sides == null)
             {
                 return NotFound();
             }
 
-            Side = await _context.Sides.FirstOrDefaultAsync(m => m.Id == id);
+            Side = await _context.Sides.FirstOrDefaultAsync(m => m.Slug == name);
             if (Side == null)
             {
                 return NotFound();

@@ -46,9 +46,10 @@ namespace WebAppAss.Pages.Menu.Drink
                 ms.Close();
                 ms.Dispose();
             }
+
+            Drink.Slug = Drink.GenerateSlug();
             _context.Drinks.Add(Drink);
             await _context.SaveChangesAsync();
-
             return RedirectToPage("./Index");
         }
     }

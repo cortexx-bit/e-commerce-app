@@ -25,36 +25,31 @@ namespace WebAppAss.Pages.Menu.Dessert
         [BindProperty]
       public WebAppAss.Models.Dessert Dessert { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string name)
         {
-            if (id == null || _context.Desserts == null)
+            if (string.IsNullOrEmpty(name) || _context.Desserts == null)
             {
                 return NotFound();
             }
 
-            var dessert = await _context.Desserts.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (dessert == null)
+            Dessert = await _context.Desserts.FirstOrDefaultAsync(m => m.Slug == name);
+            if (Dessert == null)
             {
                 return NotFound();
-            }
-            else 
-            {
-                Dessert = dessert;
             }
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync()
         {
-            if (id == null || _context.Desserts == null)
+            if (Dessert == null || Dessert.Id == 0)
             {
                 return NotFound();
             }
 
             try
             {
-                var dessert = await _context.Desserts.FindAsync(id);
+                var dessert = await _context.Desserts.FindAsync(Dessert.Id);
                 if (dessert == null)
                 {
                     return NotFound();
@@ -64,7 +59,7 @@ namespace WebAppAss.Pages.Menu.Dessert
             }
             catch (DbUpdateException ex)
             {
-                _logger.LogError(ex, "Error deleting dessert with ID {DessertId}", id);
+                _logger.LogError(ex, "Error deleting dessert with ID {DessertId}", Dessert.Id);
                 return RedirectToPage("./Error");
             }
 

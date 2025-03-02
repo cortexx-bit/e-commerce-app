@@ -46,6 +46,8 @@ namespace WebAppAss.Pages.Menu.Burger
                 ms.Close();
                 ms.Dispose();
             }
+
+            Burger.Slug = Burger.GenerateSlug();
             _context.Burgers.Add(Burger);
             await _context.SaveChangesAsync();
             return RedirectToPage("./Index");

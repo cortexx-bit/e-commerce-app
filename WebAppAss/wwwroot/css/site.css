@@ -46,7 +46,7 @@ main {
 
 .navbar-custom .nav-link {
     font-size: 20px;
-    color: #E0E0E0;
+    color: #ffffff;
     text-decoration: none;
     transition: color 0.3s;
     white-space: nowrap; 
@@ -54,6 +54,7 @@ main {
 
     .navbar-custom .nav-link:hover {
         color: #1e90ff;
+        text-decoration: none;
     }
 
 /* Right section: Account login and cart */
@@ -81,10 +82,21 @@ main {
         gap: 5px;
         line-height: 27px;
     }
+
+        .navbar-custom .navbar-right .nav-link:hover {
+            color: #1e90ff;
+            text-decoration: none; 
+        }
+
     .navbar-custom .navbar-right .btn {
         line-height: 27px; 
         padding: 0.25rem 0.75rem; 
     }
+.cart-icon {
+    width: 24px; /* Adjust size as needed */
+    height: 24px;
+    vertical-align: middle; /* Align with text if needed */
+}
 
 /* Accessibility enhancements */
 .navbar-toggler:focus {
@@ -120,9 +132,9 @@ main {
     height: 2px;
     bottom: 1px;
     left: 0;
-    background-color: #1e90ff; 
-    opacity: 0; 
-    transition: opacity 0.3s; 
+    background-color: #1e90ff;
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
 .navbar-custom .nav-link:hover::after {
@@ -163,7 +175,7 @@ main {
 
         .footer .social-media a {
             margin: 0 5px;
-            color: #c7c7c7;
+            color: #E0E0E0;
         }
 
         .footer .social-media i {
@@ -204,8 +216,8 @@ main {
             }
 
         .footer .links .btn-signup {
-            background-color: #1e90ff;
-            color: #E0E0E0;
+            background-color: #0047ab;
+            color: #ffffff;
             padding: 8px 15px;
             border-radius: 5px;
             border: none;
@@ -213,15 +225,13 @@ main {
         }
 
             .footer .links .btn-signup:hover {
-                background-color: #0047ab;
-                color: #E0E0E0;
+                background-color: #1e90ff;
+                color: #ffffff;
             }
 
             .footer .links .btn-signup:active {
                 background-color: #003366;
             }
-
-
 
 /* Index page carousel */
 .carousel {
@@ -267,7 +277,7 @@ gmpx-store-locator {
     --gmpx-color-surface: #333333; 
     --gmpx-color-on-surface: #E0E0E0; 
     --gmpx-color-on-surface-variant: #c7c7c7; 
-    --gmpx-color-primary: #1e90ff; 
+    --gmpx-color-primary: #2c3e50; 
     --gmpx-color-outline: #c7c7c7; 
     --gmpx-fixed-panel-width-row-layout: 0; 
     --gmpx-fixed-panel-height-column-layout: 0; 
@@ -279,6 +289,21 @@ gmpx-store-locator {
     --gmpx-rating-color: #ffb300;
     --gmpx-rating-color-empty: #e0e0e0;
 }
+
+.map-link {
+    color: #1e90ff; 
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+    .map-link:hover {
+        color: #1e90ff; 
+        text-decoration: none;
+    }
+
+    .map-link:focus {
+        outline: 2px solid #1e90ff; 
+    }
 
 .hours-section-title {
     color: #E0E0E0;
@@ -361,6 +386,12 @@ gmpx-store-locator {
         font-size: 14px;
     }
 
+.quantity-label {
+    margin-left: 10px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
 .quantity-input {
     width: 50px;
     text-align: center;
@@ -372,7 +403,7 @@ gmpx-store-locator {
 }
 
 .add-to-basket-btn {
-    background-color: #1e90ff;
+    background-color: #2c3e50;
     color: #E0E0E0;
     border: none;
     padding: 8px 15px;
@@ -390,9 +421,9 @@ gmpx-store-locator {
 .discover-banner {
     width: 100%;
     padding: 60px 0;
-    background: url('/img/discover-banner.jpg') no-repeat center center;
+    background: url('~/img/discover-banner.jpg') no-repeat center center;
     background-size: cover;
-    text-align: left; 
+    text-align: left;
 }
 
     .discover-banner h1 {
@@ -438,7 +469,7 @@ gmpx-store-locator {
     margin-bottom: 10px;
 }
 
-.review-content h4 {
+.review-content h3 {
     margin: 0 0 10px;
     font-size: 18px;
     color: #E0E0E0; 
@@ -490,10 +521,58 @@ gmpx-store-locator {
         font-size: 16px;
     }
 
+
+.btn-contact {
+    background-color: #0047AB; 
+    color: #ffffff; 
+    border: none;
+    padding: 10px 20px; 
+    border-radius: 4px; 
+    cursor: pointer;
+    width: 100%; 
+    font-size: 16px; 
+}
+
+    .btn-contact:hover {
+        background-color: #003366; 
+        color: #ffffff; 
+    }
+
+    .btn-contact:active {
+        background-color: #003366; 
+        color: #ffffff; 
+    }
+
+.contact-form .btn-primary {
+    display: none; 
+}
+.contact-form .form-control {
+    color: #E0E0E0 !important;
+    background-color: #121212;
+    border: 1px solid #c7c7c7;
+}
+
+::placeholder {
+    color: #c7c7c7 !important;
+    opacity: 1;
+}
+
+.contact-form .form-control:focus {
+    color: #E0E0E0 !important;
+    background-color: #121212;
+    border-color: #2c3e50;
+    outline: none;
+    box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
+}
+
 .success-message {
     margin-top: 20px;
     font-size: 18px;
-    color: green;
+    color: #00c853; 
+}
+
+.success-message-hidden {
+    display: none; 
 }
 
 /*CRUD Menu Pages layout*/
@@ -549,7 +628,7 @@ gmpx-store-locator {
 }
 
 .admin-btn {
-    background-color: #1e90ff;
+    background-color: #2c3e50;
     color: #E0E0E0;
     padding: 8px 15px;
     border-radius: 3px;
@@ -575,7 +654,7 @@ gmpx-store-locator {
 }
 
 .admin-link {
-    color: #1e90ff;
+    color: #2c3e50;
     text-decoration: none;
 }
 
@@ -618,39 +697,41 @@ img-fluid {
     max-width: 450px;
 }
 
-/*Login/register pages styling*/
+/* Login/register pages styling */
 .form-control {
-    color: #E0E0E0 !important; 
+    color: #E0E0E0 !important;
     background-color: #121212;
-    border: 1px solid #c7c7c7; 
+    border: 1px solid #c7c7c7;
 }
 
 ::placeholder {
-    color: #c7c7c7 !important; 
-    opacity: 1; 
+    color: #c7c7c7 !important;
+    opacity: 1;
 }
 
 .form-control:focus {
     color: #E0E0E0 !important;
     background-color: #121212;
-    border-color: #1e90ff;
+    border-color: #2c3e50;
     outline: none;
     box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
 }
+
 .login-container {
     display: flex;
-    justify-content: center; 
-    align-items: center; 
-    height: 80vh; 
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
 }
 
 .login-box {
     width: 100%;
-    max-width: 500px; 
+    max-width: 500px;
     padding: 20px;
-    background-color: #1c1c1c; 
-    border-radius: 10px; 
+    background-color: #1c1c1c;
+    border-radius: 10px;
 }
+
 .register-container {
     display: flex;
     justify-content: center;
@@ -666,6 +747,82 @@ img-fluid {
     border-radius: 10px;
 }
 
+.btn-login {
+    background-color: #0047AB; 
+    color: #ffffff; 
+    border: none;
+    padding: 10px 20px; 
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; 
+}
+
+    .btn-login:hover {
+        background-color: #1e90ff; 
+        color: #ffffff;
+    }
+
+    .btn-login:active {
+        background-color: #003366; 
+    }
+
+.btn-register {
+    background-color: #0047AB; 
+    color: #ffffff; 
+    border: none;
+    padding: 10px 20px; 
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; 
+}
+
+    .btn-register:hover {
+        background-color: #1e90ff; 
+        color: #ffffff; 
+    }
+
+    .btn-register:active {
+        background-color: #003366;
+    }
+
+.login-link {
+    color: #1e90ff; 
+    text-decoration: none;
+    font-size: 14px; 
+}
+
+    .login-link:hover {
+        color: #0047ab; 
+        text-decoration: underline;
+    }
+
+    .login-link:focus {
+        outline: 2px solid #1e90ff; 
+    }
+
+.register-link {
+    color: #1e90ff; 
+    text-decoration: none;
+    font-size: 14px; 
+}
+
+    .register-link:hover {
+        color: #0047ab; 
+        text-decoration: underline;
+    }
+
+    .register-link:focus {
+        outline: 2px solid #1e90ff; 
+    }
+
+.text-danger {
+    color: #d50000; 
+}
+
+.form-label {
+    color: #E0E0E0; 
+}
+
 /* Basket Page Styles*/
 .quantity-input {
     width: 80px;
@@ -679,7 +836,7 @@ img-fluid {
 
     .quantity-input:focus {
         outline: none;
-        border-color: #1e90ff; 
+        border-color: #2c3e50; 
         box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
     }
 

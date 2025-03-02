@@ -294,6 +294,9 @@ namespace WebAppAss.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("Money");
 
+                    b.Property<string>("Slug")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Special")
                         .HasColumnType("bit");
 
@@ -328,6 +331,9 @@ namespace WebAppAss.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("CompositeID")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Item_Name")
                         .IsRequired()
@@ -383,6 +389,9 @@ namespace WebAppAss.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("Money");
 
+                    b.Property<string>("Slug")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Desserts");
@@ -428,6 +437,9 @@ namespace WebAppAss.Migrations
 
                     b.Property<string>("Size")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slug")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -513,6 +525,9 @@ namespace WebAppAss.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Slug")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Sides");
@@ -567,17 +582,6 @@ namespace WebAppAss.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("WebAppAss.Models.BasketItem", b =>
-                {
-                    b.HasOne("WebAppAss.Models.Basket", "Basket")
-                        .WithMany()
-                        .HasForeignKey("BasketID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Basket");
                 });
 
             modelBuilder.Entity("WebAppAss.Models.CheckoutCustomer", b =>

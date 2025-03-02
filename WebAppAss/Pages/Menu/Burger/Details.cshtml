@@ -1,4 +1,4 @@
-﻿@page "{id:int}"
+﻿@page "{name}"
 @model WebAppAss.Pages.Menu.Burger.DetailsModel
 
 @{
@@ -12,11 +12,11 @@
             @if (Model.Burger.ImageData != null)
             {
                 <img src="data:image;base64,@Convert.ToBase64String(Model.Burger.ImageData)"
-                     alt="@Model.Burger.ImageDescription" class="img-fluid" />
+                     alt="@Model.Burger.ImageDescription" class="img-fluid" >
             }
             else
             {
-                <img src="/images/no-image.png" alt="No image available" class="food-image" />
+                <img src="/images/no-image.png" alt="No image available" class="food-image" >
             }
         </div>
 
@@ -40,12 +40,12 @@
 
             <!-- Add to Basket Form -->
             <form method="post" asp-page-handler="Buy">
-                <input type="hidden" name="itemId" value="@Model.Burger.Id" />
-                <input type="hidden" name="itemType" value="Burger" />
+                <input type="hidden" name="Id" value="@Model.Burger.Id" >
+                <input type="hidden" name="itemType" value="Burger" >
 
                 <div class="form-group">
                     <label for="quantity">Quantity:</label>
-                    <input type="number" class="form-control" id="quantity" name="quantity" value="1" min="1" max="20" />
+                    <input type="number" class="form-control" id="quantity" name="quantity" value="1" min="1" max="20" >
                 </div>
 
                 <button type="submit" class="btn btn-primary">Add to Basket</button>

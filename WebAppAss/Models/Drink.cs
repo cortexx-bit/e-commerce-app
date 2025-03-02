@@ -10,5 +10,6 @@ namespace WebAppAss.Models
 
         [Display(Name = "Alcoholic Beverage")]
         public bool IsAlcoholic { get; set; }
+
     }
 }

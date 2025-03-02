@@ -26,15 +26,14 @@ namespace WebAppAss.Pages.Menu.Side
         [BindProperty]
         public WebAppAss.Models.Side Side { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string name)
         {
-            if (id == null || _context.Sides == null)
+            if (string.IsNullOrEmpty(name) || _context.Sides == null)
             {
                 return NotFound();
             }
-            Side = await _context.Sides
-                .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.Id == id);
+
+            Side = await _context.Sides.FirstOrDefaultAsync(m => m.Slug == name);
             if (Side == null)
             {
                 return NotFound();
@@ -44,11 +43,11 @@ namespace WebAppAss.Pages.Menu.Side
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync(int id)
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid) return Page();
 
-            var sideToUpdate = await _context.Sides.FindAsync(id);
+            var sideToUpdate = await _context.Sides.FindAsync(Side.Id);
             if (sideToUpdate == null)
             {
                 return NotFound();
@@ -73,6 +72,7 @@ namespace WebAppAss.Pages.Menu.Side
             {
                 try
                 {
+                    sideToUpdate.Slug = sideToUpdate.GenerateSlug();
                     await _context.SaveChangesAsync();
                     return RedirectToPage("./Index");
                 }

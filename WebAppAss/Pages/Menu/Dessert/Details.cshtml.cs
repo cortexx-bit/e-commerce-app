@@ -22,14 +22,14 @@ namespace WebAppAss.Pages.Menu.Dessert
 
         public Models.Dessert Dessert { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string name)
         {
-            if (id == null || _context.Desserts == null)
+            if (string.IsNullOrEmpty(name) || _context.Desserts == null)
             {
                 return NotFound();
             }
 
-            Dessert = await _context.Desserts.FirstOrDefaultAsync(m => m.Id == id);
+            Dessert = await _context.Desserts.FirstOrDefaultAsync(m => m.Slug == name);
             if (Dessert == null)
             {
                 return NotFound();

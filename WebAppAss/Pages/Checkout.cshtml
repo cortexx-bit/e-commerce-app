@@ -27,7 +27,7 @@
                     <tr>
                         <td>@item.Item_Name</td>
                         <td>
-                            <input type="number" name="quantity[@item.CompositeID]" value="@item.Quantity" min="1" max="20" class="quantity-input" />
+                            <input type="number" name="quantity[@item.CompositeID]" value="@item.Quantity" min="1" max="20" class="quantity-input" >
                         </td>
                         <td>@item.Price.ToString("C")</td>
                         <td>@((item.Quantity * item.Price).ToString("C"))</td>

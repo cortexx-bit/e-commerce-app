@@ -26,30 +26,30 @@ namespace WebAppAss.Pages.Menu.Burger
         public WebAppAss.Models.Burger Burger { get; set; } = default!;
         public SelectList TypeSL { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string name)
         {
-            if (id == null || _context.Burgers == null)
+            if (string.IsNullOrEmpty(name) || _context.Burgers == null)
             {
                 return NotFound();
             }
-            Burger = await _context.Burgers
-                .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.Id == id);
+
+            Burger = await _context.Burgers.FirstOrDefaultAsync(m => m.Slug == name);
             if (Burger == null)
             {
                 return NotFound();
             }
+
             TypeSL = BurgerType.GetBurgerTypeList(Burger.Type);
             return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync(int id)
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid) return Page();
 
-            var burgerToUpdate = await _context.Burgers.FindAsync(id);
+            var burgerToUpdate = await _context.Burgers.FindAsync(Burger.Id);
             if (burgerToUpdate == null)
             {
                 return NotFound();
@@ -77,6 +77,7 @@ namespace WebAppAss.Pages.Menu.Burger
             {
                 try
                 {
+                    burgerToUpdate.Slug = burgerToUpdate.GenerateSlug();
                     await _context.SaveChangesAsync();
                     return RedirectToPage("./Index");
                 }

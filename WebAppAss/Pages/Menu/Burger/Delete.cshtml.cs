@@ -26,35 +26,30 @@ namespace WebAppAss.Pages.Menu.Burger
         [BindProperty]
       public WebAppAss.Models.Burger Burger { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string name)
         {
-            if (id == null || _context.Burgers == null)
+            if (string.IsNullOrEmpty(name) || _context.Burgers == null)
             {
                 return NotFound();
             }
 
-            var burger = await _context.Burgers.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (burger == null)
+            Burger = await _context.Burgers.FirstOrDefaultAsync(m => m.Slug == name);
+            if (Burger == null)
             {
                 return NotFound();
-            }
-            else 
-            {
-                Burger = burger;
             }
             return Page();
         }
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync()
         {
-            if (id == null || _context.Burgers == null)
+            if (Burger == null || Burger.Id == 0)
             {
                 return NotFound();
             }
 
             try
             {
-                var burger = await _context.Burgers.FindAsync(id);
+                var burger = await _context.Burgers.FindAsync(Burger.Id);
                 if (burger == null)
                 {
                     return NotFound();
@@ -64,7 +59,7 @@ namespace WebAppAss.Pages.Menu.Burger
             }
             catch (DbUpdateException ex)
             {
-                _logger.LogError(ex, "Error deleting burger with ID {BurgerId}", id);
+                _logger.LogError(ex, "Error deleting burger with ID {BurgerId}", Burger.Id);
                 return RedirectToPage("./Error");
             }
 

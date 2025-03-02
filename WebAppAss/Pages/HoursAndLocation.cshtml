@@ -11,7 +11,7 @@
         <!-- Section displaying the restaurant's location on a Google Map -->
         <div class="map-section">
             <gmpx-api-loader key="AIzaSyCfDBYmYuUvvGnWtbRS9nO6jdavC-us1rY" solution-channel="GMP_QB_locatorplus_v11_c"></gmpx-api-loader>
-            <gmpx-store-locator map-id="DEMO_MAP_ID" class="map-only"></gmpx-store-locator>
+            <gmpx-store-locator map-id="DEMO_MAP_ID" class="map-only" aria-describedby="map-description"></gmpx-store-locator>
         </div>
 
         <!-- Section displaying the restaurant's operating hours and contact information -->
@@ -19,9 +19,16 @@
             <h2 class="hours-section-title">Location</h2>
             <p class="hours-section-text">Pepper St, Chester, CH1 1DW</p>
             <p class="hours-section-text">+44 123-456-789</p>
+            <p class="hours-section-text">
+                <a href="https://www.google.com/maps/dir/?api=1&destination_place_id=EhpQZXBwZXIgU3…"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="map-link"
+                   aria-label="Get Directions to Our Location">Get Directions to Our Location</a>
+            </p>
 
             <h2 class="hours-section-title">Hours</h2>
-            <ul class="hours-list">
+            <ul class="hours-list" role="list" aria-label="Restaurant operating hours">
                 <li class="hours-list-item">Monday: 11:00 AM - 9:00 PM</li>
                 <li class="hours-list-item">Tuesday: 11:00 AM - 9:00 PM</li>
                 <li class="hours-list-item">Wednesday: 11:00 AM - 9:00 PM</li>

@@ -45,9 +45,10 @@ namespace WebAppAss.Pages.Menu.Dessert
                 ms.Close();
                 ms.Dispose();
             }
+
+            Dessert.Slug = Dessert.GenerateSlug();
             _context.Desserts.Add(Dessert);
             await _context.SaveChangesAsync();
-
             return RedirectToPage("./Index");
         }
     }

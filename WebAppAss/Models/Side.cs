@@ -7,5 +7,6 @@ namespace WebAppAss.Models
     {
         [Required(ErrorMessage = "Size is required")]
         public string Size { get; set; }
+
     }
 }

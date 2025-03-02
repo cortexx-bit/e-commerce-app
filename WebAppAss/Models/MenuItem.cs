@@ -31,6 +31,19 @@ namespace WebAppAss.Models
 
         [Timestamp]
         public byte[] ConcurrencyToken { get; set; }
+
+        public string Slug { get; set; }
+
+        public string GenerateSlug()
+        {
+            return Name?.ToLower()
+                .Replace(" ", "-")
+                .Replace("/", "")
+                .Replace("'", "")
+                .Replace("&", "and")
+                .Replace(",", "")
+                .Trim();
+        }
     }
 
 }

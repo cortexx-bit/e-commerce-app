@@ -22,14 +22,14 @@ namespace WebAppAss.Pages.Menu.Drink
 
         public Models.Drink Drink { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string name)
         {
-            if (id == null || _context.Drinks == null)
+            if (string.IsNullOrEmpty(name) || _context.Drinks == null)
             {
                 return NotFound();
             }
 
-            Drink = await _context.Drinks.FirstOrDefaultAsync(m => m.Id == id);
+            Drink = await _context.Drinks.FirstOrDefaultAsync(m => m.Slug == name);
             if (Drink == null)
             {
                 return NotFound();

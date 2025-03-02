@@ -648,7 +648,7 @@ $.validator.addMethod( "dateFA", function( value, element ) {
  * @example $.validator.methods.date("01.01.1900")
  * @result false
  *
- * @example <input name="pippo" class="{dateITA:true}" />
+ * @example <input name="pippo" class="{dateITA:true}" >
  * @desc Declares an optional input element whose value must be a valid date.
  *
  * @name $.validator.methods.dateITA
@@ -1451,7 +1451,7 @@ $.validator.addMethod( "url2", function( value, element ) {
  *
  * Works with all kind of text inputs.
  *
- * @example <input type="text" size="20" name="VehicleID" class="{required:true,vinUS:true}" />
+ * @example <input type="text" size="20" name="VehicleID" class="{required:true,vinUS:true}" >
  * @desc Declares a required input element whose value must be a valid vehicle identification number.
  *
  * @name $.validator.methods.vinUS

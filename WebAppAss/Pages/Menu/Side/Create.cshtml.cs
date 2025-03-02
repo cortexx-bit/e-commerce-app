@@ -46,9 +46,10 @@ namespace WebAppAss.Pages.Menu.Side
                 ms.Close();
                 ms.Dispose();
             }
+
+            Side.Slug = Side.GenerateSlug();
             _context.Sides.Add(Side);
             await _context.SaveChangesAsync();
-
             return RedirectToPage("./Index");
         }
     }

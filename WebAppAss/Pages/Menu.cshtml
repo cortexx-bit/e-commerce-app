@@ -11,8 +11,8 @@
         <select asp-for="ItemCategory" asp-items="Model.Categories">
             <option value="">All Categories</option>
         </select>
-        <label>Name: <input type="text" asp-for="SearchString" /></label>
-        <input type="submit" value="Search" />
+        <label>Name: <input type="text" asp-for="SearchString" ></label>
+        <input type="submit" value="Search" >
     </p>
 </form>
 
@@ -43,8 +43,7 @@
                         detailsPage = "/Menu/Dessert/Details";
                     }
                 }
-                <!-- Link to the details page for the item -->
-                <a asp-page="@detailsPage" asp-route-id="@item.Id">
+                <a asp-page="@detailsPage" asp-route-name="@((item as dynamic).GenerateSlug())">
                     @if (item.ImageData != null)
                     {
                         <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.ImageData)" alt="@item.ImageDescription" class="food-image" />
@@ -54,7 +53,7 @@
                         <img src="/images/no-image.png" alt="No image available" class="food-image" />
                     }
                 </a>
-                <a asp-page="@detailsPage" asp-route-id="@item.Id">
+                <a asp-page="@detailsPage" asp-route-name="@((item as dynamic).GenerateSlug())">
                     <h3>@item.Name</h3>
                 </a>
                 <p class="description">@item.Description</p>
@@ -62,9 +61,10 @@
                     <span class="price">@item.Price.ToString("C")</span>
                     <!-- Form to add the item to the basket -->
                     <form method="post" asp-page-handler="Buy" class="add-to-basket-form">
-                        <input type="hidden" name="itemId" value="@item.Id" />
+                        <input type="hidden" name="itemId" value="@item.Id" /> 
                         <input type="hidden" name="quantity" id="hidden-quantity-@item.Id" value="1" />
                         <input type="hidden" name="itemType" value="@(item is Models.Burger ? "Burger" : item is Models.Drink ? "Drink" : item is Models.Side ? "Side" : "Dessert")" />
+                        <label for="quantity-@item.Id" class="quantity-label">Quantity:</label>
                         <input type="number" class="quantity-input" id="quantity-@item.Id" name="quantity-@item.Id" value="1" min="1" max="20" />
                         <button type="submit" class="add-to-basket-btn">Add to Basket</button>
                     </form>
